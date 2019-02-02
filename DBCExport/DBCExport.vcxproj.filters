@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Common.cpp" />
+    <ClCompile Include="DBCDeclarations.cpp" />
+    <ClCompile Include="DBCExport.cpp" />
+    <ClCompile Include="DBCFileLoader.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="ProgressBar.cpp" />
+    <ClCompile Include="Threading.cpp" />
+    <ClCompile Include="Database\Database.cpp">
+      <Filter>Database</Filter>
+    </ClCompile>
+    <ClCompile Include="Database\DbField.cpp">
+      <Filter>Database</Filter>
+    </ClCompile>
+    <ClCompile Include="Database\QueryObject.cpp">
+      <Filter>Database</Filter>
+    </ClCompile>
+    <ClCompile Include="Database\QueryResult.cpp">
+      <Filter>Database</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ByteConverter.h" />
+    <ClInclude Include="Common.h" />
+    <ClInclude Include="DBCDeclarations.h" />
+    <ClInclude Include="DBCExport.h" />
+    <ClInclude Include="DBCFileLoader.h" />
+    <ClInclude Include="DBCStore.h" />
+    <ClInclude Include="Errors.h" />
+    <ClInclude Include="Platform\CompilerDefs.h" />
+    <ClInclude Include="Platform\Define.h" />
+    <ClInclude Include="ProgressBar.h" />
+    <ClInclude Include="SharedDefines.h" />
+    <ClInclude Include="Threading.h" />
+    <ClInclude Include="Database\Database.h">
+      <Filter>Database</Filter>
+    </ClInclude>
+    <ClInclude Include="Database\DbField.h">
+      <Filter>Database</Filter>
+    </ClInclude>
+    <ClInclude Include="Database\QueryObjects.h">
+      <Filter>Database</Filter>
+    </ClInclude>
+    <ClInclude Include="Database\QueryResult.h">
+      <Filter>Database</Filter>
+    </ClInclude>
+    <ClInclude Include="Database\SafeQueue.h">
+      <Filter>Database</Filter>
+    </ClInclude>
+    <ClInclude Include="DBCStructure.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Database">
+      <UniqueIdentifier>{0616b9aa-adce-4308-a7f9-d7e24aab4fbb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
