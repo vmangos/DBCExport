@@ -1754,3 +1754,59 @@ void ExportAreaTriggers5875(unsigned int build)
     myfile.close();
     printf("Extracted %u AreaTrigger.dbc rows.\n", count);
 }
+
+void ExportCreatureSpellData5875(unsigned int build)
+{
+    std::ofstream myfile("pet_spell_data.sql");
+    if (!myfile.is_open())
+        return;
+
+    printf("Extracting creature spell data...\n");
+    uint32 count = 0;
+
+    myfile << "INSERT INTO `pet_spell_data` VALUES\n";
+    for (uint32 i = 1; i <= sCreatureSpellDataStore5875.GetNumRows(); ++i)
+    {
+        CreatureSpellDataEntry5875 const* data = sCreatureSpellDataStore5875.LookupEntry(i);
+        if (!data)
+            continue;
+
+        count++;
+        if (count > 1)
+            myfile << ",\n";
+
+        myfile << "(" << data->ID << ", " << build << ", " << data->spellId[0] << ", " << data->spellId[1] << ", " << data->spellId[2] << ", " << data->spellId[3] << ")";
+    }
+
+    myfile << ";";
+    myfile.close();
+    printf("Extracted %u CreatureSpellData.dbc rows.\n", count);
+}
+
+void ExportMailTemplates5875(unsigned int build)
+{
+    std::ofstream myfile("mail_text_template.sql");
+    if (!myfile.is_open())
+        return;
+
+    printf("Extracting mail templates...\n");
+    uint32 count = 0;
+
+    myfile << "INSERT INTO `mail_text_template` VALUES\n";
+    for (uint32 i = 1; i <= sMailTemplateStore5875.GetNumRows(); ++i)
+    {
+        MailTemplateEntry5875 const* data = sMailTemplateStore5875.LookupEntry(i);
+        if (!data)
+            continue;
+
+        count++;
+        if (count > 1)
+            myfile << ",\n";
+
+        myfile << "(" << data->ID << ", '" << EscapeString(data->subject[0]) << "', '" << EscapeString(data->subject[1]) << "', '" << EscapeString(data->subject[2]) << "', '" << EscapeString(data->subject[3]) << "', '" << EscapeString(data->subject[4]) << "', '" << EscapeString(data->subject[5]) << "', '" << EscapeString(data->subject[6]) << "', '" << EscapeString(data->subject[7]) << "')";
+    }
+
+    myfile << ";";
+    myfile.close();
+    printf("Extracted %u MailTemplate.dbc rows.\n", count);
+}

@@ -222,7 +222,7 @@ int main()
         {
             {
                 printf("\nReading data from DBC files...\n");
-                const uint32 DBCFilesCount = 6;
+                const uint32 DBCFilesCount = 8;
                 BarGoLink bar(DBCFilesCount);
                 LoadDBC(availableDbcLocales, bar, bad_dbc_files, sAreaTriggerStore5875, dbcPath, "AreaTrigger.dbc", true);
                 LoadDBC(availableDbcLocales, bar, bad_dbc_files, sTaxiNodeStore5875, dbcPath, "TaxiNodes.dbc", true);
@@ -230,6 +230,8 @@ int main()
                 LoadDBC(availableDbcLocales, bar, bad_dbc_files, sFactionTemplateStore5875, dbcPath, "FactionTemplate.dbc", true);
                 LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSpellStore5875, dbcPath, "Spell.dbc", true);
                 LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSkillLineAbilityStore5875, dbcPath, "SkillLineAbility.dbc", true);
+                LoadDBC(availableDbcLocales, bar, bad_dbc_files, sCreatureSpellDataStore5875, dbcPath, "CreatureSpellData.dbc", true);
+                LoadDBC(availableDbcLocales, bar, bad_dbc_files, sMailTemplateStore5875, dbcPath, "MailTemplate.dbc", true);
             }
             
             ExportAreaTriggers5875(build);
@@ -237,13 +239,15 @@ int main()
             ExportSpells5875(build);
             ExportSkillLineAbilities5875(build);
             ExportTaxiNodes5875(build);
+            ExportCreatureSpellData5875(build);
+            ExportMailTemplates5875(build);
             break;
         }
         case 5464:
         {
             {
                 printf("\nReading data from DBC files...\n");
-                const uint32 DBCFilesCount = 6;
+                const uint32 DBCFilesCount = 8;
                 BarGoLink bar(DBCFilesCount);
                 LoadDBC(availableDbcLocales, bar, bad_dbc_files, sAreaTriggerStore5875, dbcPath, "AreaTrigger.dbc", true);
                 LoadDBC(availableDbcLocales, bar, bad_dbc_files, sTaxiNodeStore5875, dbcPath, "TaxiNodes.dbc", true);
@@ -251,6 +255,8 @@ int main()
                 LoadDBC(availableDbcLocales, bar, bad_dbc_files, sFactionTemplateStore5875, dbcPath, "FactionTemplate.dbc", true);
                 LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSpellStore5464, dbcPath, "Spell.dbc", true);
                 LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSkillLineAbilityStore5875, dbcPath, "SkillLineAbility.dbc", true);
+                LoadDBC(availableDbcLocales, bar, bad_dbc_files, sCreatureSpellDataStore5875, dbcPath, "CreatureSpellData.dbc", true);
+                LoadDBC(availableDbcLocales, bar, bad_dbc_files, sMailTemplateStore5875, dbcPath, "MailTemplate.dbc", true);
             }
 
             ExportAreaTriggers5875(build);
@@ -258,14 +264,15 @@ int main()
             ExportSpells5464(build);
             ExportSkillLineAbilities5875(build);
             ExportTaxiNodes5875(build);
+            ExportCreatureSpellData5875(build);
+            ExportMailTemplates5875(build);
             break;
         }
         case 5302:
-        case 5086:
         {
             {
                 printf("\nReading data from DBC files...\n");
-                const uint32 DBCFilesCount = 6;
+                const uint32 DBCFilesCount = 8;
                 BarGoLink bar(DBCFilesCount);
                 LoadDBC(availableDbcLocales, bar, bad_dbc_files, sAreaTriggerStore5875, dbcPath, "AreaTrigger.dbc", true);
                 LoadDBC(availableDbcLocales, bar, bad_dbc_files, sTaxiNodeStore5302, dbcPath, "TaxiNodes.dbc", true);
@@ -273,6 +280,8 @@ int main()
                 LoadDBC(availableDbcLocales, bar, bad_dbc_files, sFactionTemplateStore5875, dbcPath, "FactionTemplate.dbc", true);
                 LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSpellStore5302, dbcPath, "Spell.dbc", true);
                 LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSkillLineAbilityStore5875, dbcPath, "SkillLineAbility.dbc", true);
+                LoadDBC(availableDbcLocales, bar, bad_dbc_files, sCreatureSpellDataStore5875, dbcPath, "CreatureSpellData.dbc", true);
+                LoadDBC(availableDbcLocales, bar, bad_dbc_files, sMailTemplateStore5875, dbcPath, "MailTemplate.dbc", true);
             }
 
             ExportAreaTriggers5875(build);
@@ -280,13 +289,38 @@ int main()
             ExportSpells5302(build);
             ExportSkillLineAbilities5875(build);
             ExportTaxiNodes5302(build);
+            ExportCreatureSpellData5875(build);
+            ExportMailTemplates5875(build);
+            break;
+        }
+        case 5086:
+        {
+            {
+                printf("\nReading data from DBC files...\n");
+                const uint32 DBCFilesCount = 7;
+                BarGoLink bar(DBCFilesCount);
+                LoadDBC(availableDbcLocales, bar, bad_dbc_files, sAreaTriggerStore5875, dbcPath, "AreaTrigger.dbc", true);
+                LoadDBC(availableDbcLocales, bar, bad_dbc_files, sTaxiNodeStore5302, dbcPath, "TaxiNodes.dbc", true);
+                LoadDBC(availableDbcLocales, bar, bad_dbc_files, sFactionStore5875, dbcPath, "Faction.dbc", true);
+                LoadDBC(availableDbcLocales, bar, bad_dbc_files, sFactionTemplateStore5875, dbcPath, "FactionTemplate.dbc", true);
+                LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSpellStore5302, dbcPath, "Spell.dbc", true);
+                LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSkillLineAbilityStore5875, dbcPath, "SkillLineAbility.dbc", true);
+                LoadDBC(availableDbcLocales, bar, bad_dbc_files, sCreatureSpellDataStore5875, dbcPath, "CreatureSpellData.dbc", true);
+            }
+
+            ExportAreaTriggers5875(build);
+            ExportFactions5875(build);
+            ExportSpells5302(build);
+            ExportSkillLineAbilities5875(build);
+            ExportTaxiNodes5302(build);
+            ExportCreatureSpellData5875(build);
             break;
         }
         case 4878:
         {
             {
                 printf("\nReading data from DBC files...\n");
-                const uint32 DBCFilesCount = 6;
+                const uint32 DBCFilesCount = 7;
                 BarGoLink bar(DBCFilesCount);
                 LoadDBC(availableDbcLocales, bar, bad_dbc_files, sAreaTriggerStore5875, dbcPath, "AreaTrigger.dbc", true);
                 LoadDBC(availableDbcLocales, bar, bad_dbc_files, sTaxiNodeStore5302, dbcPath, "TaxiNodes.dbc", true);
@@ -294,6 +328,7 @@ int main()
                 LoadDBC(availableDbcLocales, bar, bad_dbc_files, sFactionTemplateStore5875, dbcPath, "FactionTemplate.dbc", true);
                 LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSpellStore4878, dbcPath, "Spell.dbc", true);
                 LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSkillLineAbilityStore5875, dbcPath, "SkillLineAbility.dbc", true);
+                LoadDBC(availableDbcLocales, bar, bad_dbc_files, sCreatureSpellDataStore5875, dbcPath, "CreatureSpellData.dbc", true);
             }
 
             ExportAreaTriggers5875(build);
@@ -301,6 +336,7 @@ int main()
             ExportSpells4878(build);
             ExportSkillLineAbilities5875(build);
             ExportTaxiNodes5302(build);
+            ExportCreatureSpellData5875(build);
             break;
         }
         case 4695:

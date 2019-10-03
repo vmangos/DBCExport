@@ -11,3 +11,5 @@ void ExportSpells4297(unsigned int build);
 void ExportSkillLineAbilities5875(unsigned int build);
 void ExportFactions5875(unsigned int build);
 void ExportFactions4297(unsigned int build);
+void ExportCreatureSpellData5875(unsigned int build);
+void ExportMailTemplates5875(unsigned int build);

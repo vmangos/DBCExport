@@ -14,3 +14,5 @@ extern DBCStorage <FactionEntry4297>                 sFactionStore4297;
 extern DBCStorage <FactionTemplateEntry5875>         sFactionTemplateStore5875;
 extern DBCStorage <TaxiNodesEntry5875>               sTaxiNodeStore5875;
 extern DBCStorage <TaxiNodesEntry5302>               sTaxiNodeStore5302;
+extern DBCStorage <CreatureSpellDataEntry5875>       sCreatureSpellDataStore5875;
+extern DBCStorage <MailTemplateEntry5875>            sMailTemplateStore5875;

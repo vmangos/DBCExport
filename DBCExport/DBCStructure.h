@@ -771,6 +771,20 @@ struct SkillLineAbilityEntry5875
     uint32    reqtrainpoints;                               // 14
 };
 
+struct CreatureSpellDataEntry5875
+{
+    uint32    ID;                                           // 0        m_ID
+    uint32    spellId[4];                                   // 1-4      m_spells[4]
+  //uint32    availability[4];                              // 4-7      m_availability[4]
+};
+
+struct MailTemplateEntry5875
+{
+    uint32      ID;                                         // 0        m_ID
+    char*       subject[8];                                 // 1-8      m_subject_lang
+                                                            // 9        string flags
+};
+
 #if defined( __GNUC__ )
 #pragma pack()
 #else
