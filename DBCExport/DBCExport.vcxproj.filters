@@ -50,6 +50,7 @@
       <Filter>Database</Filter>
     </ClInclude>
     <ClInclude Include="DBCStructure.h" />
+    <ClInclude Include="Utility.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Database">

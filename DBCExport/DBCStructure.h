@@ -1,7 +1,10 @@
 #ifndef MANGOS_DBCSTRUCTURE_H
 #define MANGOS_DBCSTRUCTURE_H
 
+#include <iostream>
+#include <fstream>
 #include "SharedDefines.h"
+#include "Utility.h"
 
 #if defined( __GNUC__ )
 #pragma pack(1)
@@ -37,38 +40,36 @@ struct AreaTriggerEntry5875
         data->box_orientation = box_orientation;
         return data;
     }
-};
 
-struct ClassFamilyMask
-{
-    uint64 Flags;
-
-    ClassFamilyMask() : Flags(0) {}
-    explicit ClassFamilyMask(uint64 familyFlags) : Flags(familyFlags) {}
-
-    bool Empty() const { return Flags == 0; }
-    bool operator!() const { return Empty(); }
-    operator void const* () const { return Empty() ? nullptr : this; } // for allow normal use in if(mask)
-
-    bool IsFitToFamilyMask(uint64 familyFlags) const
+    bool operator==(AreaTriggerEntry5875 const& other) const
     {
-        return (Flags & familyFlags) != 0;
+        if (other.id != id)
+            return false;
+        if (other.mapid != mapid)
+            return false;
+        if (other.x != x)
+            return false;
+        if (other.y != y)
+            return false;
+        if (other.z != z)
+            return false;
+        if (other.radius != radius)
+            return false;
+        if (other.box_x != box_x)
+            return false;
+        if (other.box_y != box_y)
+            return false;
+        if (other.box_z != box_z)
+            return false;
+        if (other.box_orientation != box_orientation)
+            return false;
+
+        return true;
     }
 
-    bool IsFitToFamilyMask(ClassFamilyMask const& mask) const
+    bool operator!=(AreaTriggerEntry5875 const& other) const
     {
-        return (Flags & mask.Flags) != 0;
-    }
-
-    uint64 operator& (uint64 mask) const                    // possible will removed at finish convertion code use IsFitToFamilyMask
-    {
-        return Flags & mask;
-    }
-
-    ClassFamilyMask& operator|= (ClassFamilyMask const& mask)
-    {
-        Flags |= mask.Flags;
-        return *this;
+        return !(other == *this);
     }
 };
 
@@ -156,7 +157,7 @@ struct SpellEntry5875
     uint32    StartRecoveryTime;                            // 158
     uint32    MaxTargetLevel;                               // 159
     uint32    SpellFamilyName;                              // 160
-    ClassFamilyMask SpellFamilyFlags;                       // 161+162
+    uint64    SpellFamilyFlags;                             // 161+162
     uint32    MaxAffectedTargets;                           // 163
     uint32    DmgClass;                                     // 164
     uint32    PreventionType;                               // 165
@@ -238,13 +239,13 @@ struct SpellEntry5875
         data->SpellIconID = SpellIconID;
         data->activeIconID = activeIconID;
         data->spellPriority = spellPriority;
-        std::copy(std::begin(SpellName), std::end(SpellName), std::begin(data->SpellName));
+        CopyStringArrays(SpellName, data->SpellName, MAX_DBC_LOCALE);
         data->SpellNameFlag = SpellNameFlag;
-        std::copy(std::begin(Rank), std::end(Rank), std::begin(data->Rank));
+        CopyStringArrays(Rank, data->Rank, MAX_DBC_LOCALE);
         data->RankFlags = RankFlags;
-        std::copy(std::begin(Description), std::end(Description), std::begin(data->Description));
+        CopyStringArrays(Description, data->Description, MAX_DBC_LOCALE);
         data->DescriptionFlags = DescriptionFlags;
-        std::copy(std::begin(ToolTip), std::end(ToolTip), std::begin(data->ToolTip));
+        CopyStringArrays(ToolTip, data->ToolTip, MAX_DBC_LOCALE);
         data->ToolTipFlags = ToolTipFlags;
         data->ManaCostPercentage = ManaCostPercentage;
         data->StartRecoveryCategory = StartRecoveryCategory;
@@ -261,6 +262,385 @@ struct SpellEntry5875
         data->MinReputation = MinReputation;
         data->RequiredAuraVision = RequiredAuraVision;
         return data;
+    }
+
+    bool operator==(SpellEntry5875 const& other) const
+    {
+        if (other.Id != Id)
+            return false;
+        if (other.School != School)
+            return false;
+        if (other.Category != Category)
+            return false;
+        if (other.castUI != castUI)
+            return false;
+        if (other.Dispel != Dispel)
+            return false;
+        if (other.Mechanic != Mechanic)
+            return false;
+        if (other.Attributes != Attributes)
+            return false;
+        if (other.AttributesEx != AttributesEx)
+            return false;
+        if (other.AttributesEx2 != AttributesEx2)
+            return false;
+        if (other.AttributesEx3 != AttributesEx3)
+            return false;
+        if (other.AttributesEx4 != AttributesEx4)
+            return false;
+        if (other.Stances != Stances)
+            return false;
+        if (other.StancesNot != StancesNot)
+            return false;
+        if (other.Targets != Targets)
+            return false;
+        if (other.TargetCreatureType != TargetCreatureType)
+            return false;
+        if (other.RequiresSpellFocus != RequiresSpellFocus)
+            return false;
+        if (other.CasterAuraState != CasterAuraState)
+            return false;
+        if (other.TargetAuraState != TargetAuraState)
+            return false;
+        if (other.CastingTimeIndex != CastingTimeIndex)
+            return false;
+        if (other.RecoveryTime != RecoveryTime)
+            return false;
+        if (other.CategoryRecoveryTime != CategoryRecoveryTime)
+            return false;
+        if (other.InterruptFlags != InterruptFlags)
+            return false;
+        if (other.AuraInterruptFlags != AuraInterruptFlags)
+            return false;
+        if (other.ChannelInterruptFlags != ChannelInterruptFlags)
+            return false;
+        if (other.procFlags != procFlags)
+            return false;
+        if (other.procChance != procChance)
+            return false;
+        if (other.procCharges != procCharges)
+            return false;
+        if (other.maxLevel != maxLevel)
+            return false;
+        if (other.baseLevel != baseLevel)
+            return false;
+        if (other.spellLevel != spellLevel)
+            return false;
+        if (other.DurationIndex != DurationIndex)
+            return false;
+        if (other.powerType != powerType)
+            return false;
+        if (other.manaCost != manaCost)
+            return false;
+        if (other.manaCostPerlevel != manaCostPerlevel)
+            return false;
+        if (other.manaPerSecond != manaPerSecond)
+            return false;
+        if (other.manaPerSecondPerLevel != manaPerSecondPerLevel)
+            return false;
+        if (other.rangeIndex != rangeIndex)
+            return false;
+        if (other.speed != speed)
+            return false;
+        if (other.modalNextSpell != modalNextSpell)
+            return false;
+        if (other.StackAmount != StackAmount)
+            return false;
+
+        if (!std::equal(std::begin(Totem), std::end(Totem), std::begin(other.Totem)))
+            return false;
+        if (!std::equal(std::begin(Reagent), std::end(Reagent), std::begin(other.Reagent)))
+            return false;
+        if (!std::equal(std::begin(ReagentCount), std::end(ReagentCount), std::begin(other.ReagentCount)))
+            return false;
+        if (!std::equal(std::begin(Effect), std::end(Effect), std::begin(other.Effect)))
+            return false;
+        if (!std::equal(std::begin(EffectDieSides), std::end(EffectDieSides), std::begin(other.EffectDieSides)))
+            return false;
+        if (!std::equal(std::begin(EffectBaseDice), std::end(EffectBaseDice), std::begin(other.EffectBaseDice)))
+            return false;
+        if (!std::equal(std::begin(EffectDicePerLevel), std::end(EffectDicePerLevel), std::begin(other.EffectDicePerLevel)))
+            return false;
+        if (!std::equal(std::begin(EffectRealPointsPerLevel), std::end(EffectRealPointsPerLevel), std::begin(other.EffectRealPointsPerLevel)))
+            return false;
+        if (!std::equal(std::begin(EffectBasePoints), std::end(EffectBasePoints), std::begin(other.EffectBasePoints)))
+            return false;
+        if (!std::equal(std::begin(EffectMechanic), std::end(EffectMechanic), std::begin(other.EffectMechanic)))
+            return false;
+        if (!std::equal(std::begin(EffectImplicitTargetA), std::end(EffectImplicitTargetA), std::begin(other.EffectImplicitTargetA)))
+            return false;
+        if (!std::equal(std::begin(EffectImplicitTargetB), std::end(EffectImplicitTargetB), std::begin(other.EffectImplicitTargetB)))
+            return false;
+        if (!std::equal(std::begin(EffectRadiusIndex), std::end(EffectRadiusIndex), std::begin(other.EffectRadiusIndex)))
+            return false;
+        if (!std::equal(std::begin(EffectApplyAuraName), std::end(EffectApplyAuraName), std::begin(other.EffectApplyAuraName)))
+            return false;
+        if (!std::equal(std::begin(EffectAmplitude), std::end(EffectAmplitude), std::begin(other.EffectAmplitude)))
+            return false;
+        if (!std::equal(std::begin(EffectMultipleValue), std::end(EffectMultipleValue), std::begin(other.EffectMultipleValue)))
+            return false;
+        if (!std::equal(std::begin(EffectChainTarget), std::end(EffectChainTarget), std::begin(other.EffectChainTarget)))
+            return false;
+        if (!std::equal(std::begin(EffectItemType), std::end(EffectItemType), std::begin(other.EffectItemType)))
+            return false;
+        if (!std::equal(std::begin(EffectMiscValue), std::end(EffectMiscValue), std::begin(other.EffectMiscValue)))
+            return false;
+        if (!std::equal(std::begin(EffectTriggerSpell), std::end(EffectTriggerSpell), std::begin(other.EffectTriggerSpell)))
+            return false;
+        if (!std::equal(std::begin(EffectPointsPerComboPoint), std::end(EffectPointsPerComboPoint), std::begin(other.EffectPointsPerComboPoint)))
+            return false;
+        if (!std::equal(std::begin(DmgMultiplier), std::end(DmgMultiplier), std::begin(other.DmgMultiplier)))
+            return false;
+
+        if (!CompareStringArrays(other.SpellName, SpellName, MAX_DBC_LOCALE))
+            return false;
+        if (!CompareStringArrays(other.Rank, Rank, MAX_DBC_LOCALE))
+            return false;
+        if (!CompareStringArrays(other.Description, Description, MAX_DBC_LOCALE))
+            return false;
+        if (!CompareStringArrays(other.ToolTip, ToolTip, MAX_DBC_LOCALE))
+            return false;
+
+        if (other.EquippedItemClass != EquippedItemClass)
+            return false;
+        if (other.EquippedItemSubClassMask != EquippedItemSubClassMask)
+            return false;
+        if (other.EquippedItemInventoryTypeMask != EquippedItemInventoryTypeMask)
+            return false;
+        if (other.SpellVisual != SpellVisual)
+            return false;
+        if (other.SpellVisual2 != SpellVisual2)
+            return false;
+        if (other.SpellIconID != SpellIconID)
+            return false;
+        if (other.activeIconID != activeIconID)
+            return false;
+        if (other.spellPriority != spellPriority)
+            return false;
+        /*
+        if (other.SpellNameFlag != SpellNameFlag)
+        return false;
+        if (other.RankFlags != RankFlags)
+        return false;
+        if (other.DescriptionFlags != DescriptionFlags)
+        return false;
+        if (other.ToolTipFlags != ToolTipFlags)
+        return false;
+        */
+        if (other.ManaCostPercentage != ManaCostPercentage)
+            return false;
+        if (other.StartRecoveryCategory != StartRecoveryCategory)
+            return false;
+        if (other.StartRecoveryTime != StartRecoveryTime)
+            return false;
+        if (other.MaxTargetLevel != MaxTargetLevel)
+            return false;
+        if (other.SpellFamilyName != SpellFamilyName)
+            return false;
+        if (other.SpellFamilyFlags != SpellFamilyFlags)
+            return false;
+        if (other.MaxAffectedTargets != MaxAffectedTargets)
+            return false;
+        if (other.DmgClass != DmgClass)
+            return false;
+        if (other.PreventionType != PreventionType)
+            return false;
+        if (other.StanceBarOrder != StanceBarOrder)
+            return false;
+        if (other.MinFactionId != MinFactionId)
+            return false;
+        if (other.MinReputation != MinReputation)
+            return false;
+        if (other.RequiredAuraVision != RequiredAuraVision)
+            return false;
+
+        return true;
+    }
+
+    bool operator!=(SpellEntry5875 const& other) const
+    {
+        return !(other == *this);
+    }
+
+    void WriteToSqlFile(std::ofstream& myfile, uint16 build) const
+    {
+        SpellEntry5875 const* spellEntry = this;
+        myfile << "(";
+        myfile << spellEntry->Id << ", "; // 1
+        myfile << build << ", ";
+        myfile << spellEntry->School << ", "; // 2
+        myfile << spellEntry->Category << ", "; // 3
+        myfile << spellEntry->castUI << ", "; // 4
+        myfile << spellEntry->Dispel << ", "; // 5
+        myfile << spellEntry->Mechanic << ", "; // 6
+        myfile << spellEntry->Attributes << ", "; // 7
+        myfile << spellEntry->AttributesEx << ", "; // 8
+        myfile << spellEntry->AttributesEx2 << ", "; // 9
+        myfile << spellEntry->AttributesEx3 << ", "; // 10
+        myfile << spellEntry->AttributesEx4 << ", "; // 11
+        myfile << spellEntry->Stances << ", "; // 12
+        myfile << spellEntry->StancesNot << ", "; // 13
+        myfile << spellEntry->Targets << ", "; // 14
+        myfile << spellEntry->TargetCreatureType << ", "; // 15
+        myfile << spellEntry->RequiresSpellFocus << ", "; // 16
+        myfile << spellEntry->CasterAuraState << ", "; // 17
+        myfile << spellEntry->TargetAuraState << ", "; // 18
+        myfile << spellEntry->CastingTimeIndex << ", "; // 19
+        myfile << spellEntry->RecoveryTime << ", "; // 20
+        myfile << spellEntry->CategoryRecoveryTime << ", "; // 21
+        myfile << spellEntry->InterruptFlags << ", "; // 22
+        myfile << spellEntry->AuraInterruptFlags << ", "; // 23
+        myfile << spellEntry->ChannelInterruptFlags << ", "; // 24
+        myfile << spellEntry->procFlags << ", "; // 25
+        myfile << spellEntry->procChance << ", "; // 26
+        myfile << spellEntry->procCharges << ", "; // 27
+        myfile << spellEntry->maxLevel << ", "; // 28
+        myfile << spellEntry->baseLevel << ", "; // 29
+        myfile << spellEntry->spellLevel << ", "; // 30
+        myfile << spellEntry->DurationIndex << ", "; // 31
+        myfile << spellEntry->powerType << ", "; // 32
+        myfile << spellEntry->manaCost << ", "; // 33
+        myfile << spellEntry->manaCostPerlevel << ", "; // 34
+        myfile << spellEntry->manaPerSecond << ", "; // 35
+        myfile << spellEntry->manaPerSecondPerLevel << ", "; // 36
+        myfile << spellEntry->rangeIndex << ", "; // 37
+        myfile << spellEntry->speed << ", "; // 38
+        myfile << spellEntry->modalNextSpell << ", "; // 39
+        myfile << spellEntry->StackAmount << ", "; // 40
+        myfile << spellEntry->Totem[0] << ", "; // 41
+        myfile << spellEntry->Totem[1] << ", "; // 42
+        myfile << spellEntry->Reagent[0] << ", "; // 43
+        myfile << spellEntry->Reagent[1] << ", "; // 44
+        myfile << spellEntry->Reagent[2] << ", "; // 45
+        myfile << spellEntry->Reagent[3] << ", "; // 46
+        myfile << spellEntry->Reagent[4] << ", "; // 47
+        myfile << spellEntry->Reagent[5] << ", "; // 48
+        myfile << spellEntry->Reagent[6] << ", "; // 49
+        myfile << spellEntry->Reagent[7] << ", "; // 50
+        myfile << spellEntry->ReagentCount[0] << ", "; // 51
+        myfile << spellEntry->ReagentCount[1] << ", "; // 52
+        myfile << spellEntry->ReagentCount[2] << ", "; // 53
+        myfile << spellEntry->ReagentCount[3] << ", "; // 54
+        myfile << spellEntry->ReagentCount[4] << ", "; // 55
+        myfile << spellEntry->ReagentCount[5] << ", "; // 56
+        myfile << spellEntry->ReagentCount[6] << ", "; // 57
+        myfile << spellEntry->ReagentCount[7] << ", "; // 58
+        myfile << spellEntry->EquippedItemClass << ", "; // 59
+        myfile << spellEntry->EquippedItemSubClassMask << ", "; // 60
+        myfile << spellEntry->EquippedItemInventoryTypeMask << ", "; // 61
+        myfile << spellEntry->Effect[0] << ", "; // 62
+        myfile << spellEntry->Effect[1] << ", "; // 63
+        myfile << spellEntry->Effect[2] << ", "; // 64
+        myfile << spellEntry->EffectDieSides[0] << ", "; // 65
+        myfile << spellEntry->EffectDieSides[1] << ", "; // 66
+        myfile << spellEntry->EffectDieSides[2] << ", "; // 67
+        myfile << spellEntry->EffectBaseDice[0] << ", "; // 68
+        myfile << spellEntry->EffectBaseDice[1] << ", "; // 69
+        myfile << spellEntry->EffectBaseDice[2] << ", "; // 70
+        myfile << spellEntry->EffectDicePerLevel[0] << ", "; // 71
+        myfile << spellEntry->EffectDicePerLevel[1] << ", "; // 72
+        myfile << spellEntry->EffectDicePerLevel[2] << ", "; // 73
+        myfile << spellEntry->EffectRealPointsPerLevel[0] << ", "; // 74
+        myfile << spellEntry->EffectRealPointsPerLevel[1] << ", "; // 75
+        myfile << spellEntry->EffectRealPointsPerLevel[2] << ", "; // 76
+        myfile << spellEntry->EffectBasePoints[0] << ", "; // 77
+        myfile << spellEntry->EffectBasePoints[1] << ", "; // 78
+        myfile << spellEntry->EffectBasePoints[2] << ", "; // 79
+        myfile << spellEntry->EffectMechanic[0] << ", "; // 80
+        myfile << spellEntry->EffectMechanic[1] << ", "; // 81
+        myfile << spellEntry->EffectMechanic[2] << ", "; // 82
+        myfile << spellEntry->EffectImplicitTargetA[0] << ", "; // 83
+        myfile << spellEntry->EffectImplicitTargetA[1] << ", "; // 84
+        myfile << spellEntry->EffectImplicitTargetA[2] << ", "; // 85
+        myfile << spellEntry->EffectImplicitTargetB[0] << ", "; // 86
+        myfile << spellEntry->EffectImplicitTargetB[1] << ", "; // 87
+        myfile << spellEntry->EffectImplicitTargetB[2] << ", "; // 88
+        myfile << spellEntry->EffectRadiusIndex[0] << ", "; // 89
+        myfile << spellEntry->EffectRadiusIndex[1] << ", "; // 90
+        myfile << spellEntry->EffectRadiusIndex[2] << ", "; // 91
+        myfile << spellEntry->EffectApplyAuraName[0] << ", "; // 92
+        myfile << spellEntry->EffectApplyAuraName[1] << ", "; // 93
+        myfile << spellEntry->EffectApplyAuraName[2] << ", "; // 94
+        myfile << spellEntry->EffectAmplitude[0] << ", "; // 95
+        myfile << spellEntry->EffectAmplitude[1] << ", "; // 96
+        myfile << spellEntry->EffectAmplitude[2] << ", "; // 97
+        myfile << spellEntry->EffectMultipleValue[0] << ", "; // 98
+        myfile << spellEntry->EffectMultipleValue[1] << ", "; // 99
+        myfile << spellEntry->EffectMultipleValue[2] << ", "; // 100
+        myfile << spellEntry->EffectChainTarget[0] << ", "; // 101
+        myfile << spellEntry->EffectChainTarget[1] << ", "; // 102
+        myfile << spellEntry->EffectChainTarget[2] << ", "; // 103
+        myfile << spellEntry->EffectItemType[0] << ", "; // 104
+        myfile << spellEntry->EffectItemType[1] << ", "; // 105
+        myfile << spellEntry->EffectItemType[2] << ", "; // 106
+        myfile << spellEntry->EffectMiscValue[0] << ", "; // 107
+        myfile << spellEntry->EffectMiscValue[1] << ", "; // 108
+        myfile << spellEntry->EffectMiscValue[2] << ", "; // 109
+        myfile << spellEntry->EffectTriggerSpell[0] << ", "; // 110
+        myfile << spellEntry->EffectTriggerSpell[1] << ", "; // 111
+        myfile << spellEntry->EffectTriggerSpell[2] << ", "; // 112
+        myfile << spellEntry->EffectPointsPerComboPoint[0] << ", "; // 113
+        myfile << spellEntry->EffectPointsPerComboPoint[1] << ", "; // 114
+        myfile << spellEntry->EffectPointsPerComboPoint[2] << ", "; // 115
+        myfile << spellEntry->SpellVisual << ", "; // 116
+        myfile << spellEntry->SpellVisual2 << ", "; // 117
+        myfile << spellEntry->SpellIconID << ", "; // 118
+        myfile << spellEntry->activeIconID << ", "; // 119
+        myfile << spellEntry->spellPriority << ", "; // 120
+        myfile << "'" << EscapeString(spellEntry->SpellName[0]) << "', "; // 121
+        myfile << "'" << EscapeString(spellEntry->SpellName[1]) << "', "; // 122
+        myfile << "'" << EscapeString(spellEntry->SpellName[2]) << "', "; // 123
+        myfile << "'" << EscapeString(spellEntry->SpellName[3]) << "', "; // 124
+        myfile << "'" << EscapeString(spellEntry->SpellName[4]) << "', "; // 125
+        myfile << "'" << EscapeString(spellEntry->SpellName[5]) << "', "; // 126
+        myfile << "'" << EscapeString(spellEntry->SpellName[6]) << "', "; // 127
+        myfile << "'" << EscapeString(spellEntry->SpellName[7]) << "', "; // 128
+        myfile << spellEntry->SpellNameFlag << ", "; // 129
+        myfile << "'" << EscapeString(spellEntry->Rank[0]) << "', "; // 130
+        myfile << "'" << EscapeString(spellEntry->Rank[1]) << "', "; // 131
+        myfile << "'" << EscapeString(spellEntry->Rank[2]) << "', "; // 132
+        myfile << "'" << EscapeString(spellEntry->Rank[3]) << "', "; // 133
+        myfile << "'" << EscapeString(spellEntry->Rank[4]) << "', "; // 134
+        myfile << "'" << EscapeString(spellEntry->Rank[5]) << "', "; // 135
+        myfile << "'" << EscapeString(spellEntry->Rank[6]) << "', "; // 136
+        myfile << "'" << EscapeString(spellEntry->Rank[7]) << "', "; // 137
+        myfile << spellEntry->RankFlags << ", "; // 138
+        myfile << "'" << EscapeString(spellEntry->Description[0]) << "', "; // 139
+        myfile << "'" << EscapeString(spellEntry->Description[1]) << "', "; // 140
+        myfile << "'" << EscapeString(spellEntry->Description[2]) << "', "; // 141
+        myfile << "'" << EscapeString(spellEntry->Description[3]) << "', "; // 142
+        myfile << "'" << EscapeString(spellEntry->Description[4]) << "', "; // 143
+        myfile << "'" << EscapeString(spellEntry->Description[5]) << "', "; // 144
+        myfile << "'" << EscapeString(spellEntry->Description[6]) << "', "; // 145
+        myfile << "'" << EscapeString(spellEntry->Description[7]) << "', "; // 146
+        myfile << spellEntry->DescriptionFlags << ", "; // 147
+        myfile << "'" << EscapeString(spellEntry->ToolTip[0]) << "', "; // 148
+        myfile << "'" << EscapeString(spellEntry->ToolTip[1]) << "', "; // 149
+        myfile << "'" << EscapeString(spellEntry->ToolTip[2]) << "', "; // 150
+        myfile << "'" << EscapeString(spellEntry->ToolTip[3]) << "', "; // 151
+        myfile << "'" << EscapeString(spellEntry->ToolTip[4]) << "', "; // 152
+        myfile << "'" << EscapeString(spellEntry->ToolTip[5]) << "', "; // 153
+        myfile << "'" << EscapeString(spellEntry->ToolTip[6]) << "', "; // 154
+        myfile << "'" << EscapeString(spellEntry->ToolTip[7]) << "', "; // 155
+        myfile << spellEntry->ToolTipFlags << ", "; // 156
+        myfile << spellEntry->ManaCostPercentage << ", "; // 157
+        myfile << spellEntry->StartRecoveryCategory << ", "; // 158
+        myfile << spellEntry->StartRecoveryTime << ", "; // 159
+        myfile << "0, "; // minTargetLevel
+        myfile << spellEntry->MaxTargetLevel << ", "; // 160
+        myfile << spellEntry->SpellFamilyName << ", "; // 161
+        myfile << spellEntry->SpellFamilyFlags << ", "; // 162
+        myfile << spellEntry->MaxAffectedTargets << ", "; // 163
+        myfile << spellEntry->DmgClass << ", "; // 164
+        myfile << spellEntry->PreventionType << ", "; // 165
+        myfile << spellEntry->StanceBarOrder << ", "; // 166
+        myfile << spellEntry->DmgMultiplier[0] << ", "; // 167
+        myfile << spellEntry->DmgMultiplier[1] << ", "; // 168
+        myfile << spellEntry->DmgMultiplier[2] << ", "; // 169
+        myfile << spellEntry->MinFactionId << ", "; // 170
+        myfile << spellEntry->MinReputation << ", "; // 171
+        myfile << spellEntry->RequiredAuraVision << ", "; // 172
+        myfile << "0)"; // customFlags
     }
 };
 
@@ -345,7 +725,7 @@ struct SpellEntry5464
     uint32    StartRecoveryTime;                            // 155
     uint32    MaxTargetLevel;                               // 156
     uint32    SpellFamilyName;                              // 157
-    ClassFamilyMask SpellFamilyFlags;                       // 158+159
+    uint64    SpellFamilyFlags;                             // 158+159
     uint32    MaxAffectedTargets;                           // 160
     uint32    DmgClass;                                     // 161
     uint32    PreventionType;                               // 162
@@ -631,7 +1011,7 @@ struct SpellEntry5302
         data->StartRecoveryTime = StartRecoveryTime;
         data->MaxTargetLevel = MaxTargetLevel;
         data->SpellFamilyName = SpellFamilyName;
-        data->SpellFamilyFlags = ClassFamilyMask(SpellFamilyFlags);
+        data->SpellFamilyFlags = uint64(SpellFamilyFlags);
         data->MaxAffectedTargets = MaxAffectedTargets;
         data->DmgClass = DmgClass;
         data->PreventionType = PreventionType;
@@ -818,7 +1198,7 @@ struct SpellEntry4878
         data->StartRecoveryTime = StartRecoveryTime;
         data->MaxTargetLevel = MaxTargetLevel;
         data->SpellFamilyName = SpellFamilyName;
-        data->SpellFamilyFlags = ClassFamilyMask(SpellFamilyFlags);
+        data->SpellFamilyFlags = uint64(SpellFamilyFlags);
         data->MaxAffectedTargets = MaxAffectedTargets;
         data->DmgClass = DmgClass;
         data->PreventionType = PreventionType;
@@ -1004,7 +1384,7 @@ struct SpellEntry4695
         data->StartRecoveryTime = StartRecoveryTime;
         data->MaxTargetLevel = MaxTargetLevel;
         data->SpellFamilyName = SpellFamilyName;
-        data->SpellFamilyFlags = ClassFamilyMask(SpellFamilyFlags);
+        data->SpellFamilyFlags = uint64(SpellFamilyFlags);
         data->MaxAffectedTargets = MaxAffectedTargets;
         data->DmgClass = DmgClass;
         data->PreventionType = PreventionType;
@@ -1189,7 +1569,7 @@ struct SpellEntry4449
         data->StartRecoveryTime = StartRecoveryTime;
         data->MaxTargetLevel = MaxTargetLevel;
         data->SpellFamilyName = SpellFamilyName;
-        data->SpellFamilyFlags = ClassFamilyMask(SpellFamilyFlags);
+        data->SpellFamilyFlags = uint64(SpellFamilyFlags);
         data->MaxAffectedTargets = MaxAffectedTargets;
         data->DmgClass = DmgClass;
         data->PreventionType = PreventionType;
@@ -1373,7 +1753,7 @@ struct SpellEntry4297
         data->StartRecoveryTime = StartRecoveryTime;
         data->MaxTargetLevel = MaxTargetLevel;
         data->SpellFamilyName = SpellFamilyName;
-        data->SpellFamilyFlags = ClassFamilyMask(SpellFamilyFlags);
+        data->SpellFamilyFlags = uint64(SpellFamilyFlags);
         data->MaxAffectedTargets = MaxAffectedTargets;
         data->DmgClass = DmgClass;
         data->PreventionType = PreventionType;
@@ -1409,9 +1789,40 @@ struct FactionEntry5875
         std::copy(std::begin(BaseRepValue), std::end(BaseRepValue), std::begin(data->BaseRepValue));
         std::copy(std::begin(ReputationFlags), std::end(ReputationFlags), std::begin(data->ReputationFlags));
         data->team = team;
-        std::copy(std::begin(name), std::end(name), std::begin(data->name));
-        std::copy(std::begin(description), std::end(description), std::begin(data->description));
+        CopyStringArrays(name, data->name, MAX_DBC_LOCALE);
+        CopyStringArrays(description, data->description, MAX_DBC_LOCALE);
         return data;
+    }
+
+    bool operator==(FactionEntry5875 const& other) const
+    {
+        if (other.Id != Id)
+            return false;
+        if (other.reputationListID != reputationListID)
+            return false;
+        if (other.team != team)
+            return false;
+
+        if (!std::equal(std::begin(BaseRepRaceMask), std::end(BaseRepRaceMask), std::begin(other.BaseRepRaceMask)))
+            return false;
+        if (!std::equal(std::begin(BaseRepClassMask), std::end(BaseRepClassMask), std::begin(other.BaseRepClassMask)))
+            return false;
+        if (!std::equal(std::begin(BaseRepValue), std::end(BaseRepValue), std::begin(other.BaseRepValue)))
+            return false;
+        if (!std::equal(std::begin(ReputationFlags), std::end(ReputationFlags), std::begin(other.ReputationFlags)))
+            return false;
+
+        if (!CompareStringArrays(other.name, name, MAX_DBC_LOCALE))
+            return false;
+        if (!CompareStringArrays(other.description, description, MAX_DBC_LOCALE))
+            return false;
+
+        return true;
+    }
+
+    bool operator!=(FactionEntry5875 const& other) const
+    {
+        return !(other == *this);
     }
 };
 
@@ -1437,7 +1848,7 @@ struct FactionEntry4297
         std::copy(std::begin(BaseRepValue), std::end(BaseRepValue), std::begin(data->BaseRepValue));
         std::copy(std::begin(ReputationFlags), std::end(ReputationFlags), std::begin(data->ReputationFlags));
         data->team = team;
-        std::copy(std::begin(name), std::end(name), std::begin(data->name));
+        CopyStringArrays(name, data->name, MAX_DBC_LOCALE);
         std::fill(std::begin(data->description), std::end(data->description), (char*)"");
         return data;
     }
@@ -1467,6 +1878,34 @@ struct FactionTemplateEntry5875
         std::copy(std::begin(friendFaction), std::end(friendFaction), std::begin(data->friendFaction));
         return data;
     }
+
+    bool operator==(FactionTemplateEntry5875 const& other) const
+    {
+        if (other.ID != ID)
+            return false;
+        if (other.faction != faction)
+            return false;
+        if (other.factionFlags != factionFlags)
+            return false;
+        if (other.ourMask != ourMask)
+            return false;
+        if (other.friendlyMask != friendlyMask)
+            return false;
+        if (other.hostileMask != hostileMask)
+            return false;
+
+        if (!std::equal(std::begin(enemyFaction), std::end(enemyFaction), std::begin(other.enemyFaction)))
+            return false;
+        if (!std::equal(std::begin(friendFaction), std::end(friendFaction), std::begin(other.friendFaction)))
+            return false;
+
+        return true;
+    }
+
+    bool operator!=(FactionTemplateEntry5875 const& other) const
+    {
+        return !(other == *this);
+    }
 };
 
 struct TaxiNodesEntry5875
@@ -1488,9 +1927,36 @@ struct TaxiNodesEntry5875
         data->x = x;
         data->y = y;
         data->z = z;
-        std::copy(std::begin(name), std::end(name), std::begin(data->name));
+        CopyStringArrays(name, data->name, MAX_DBC_LOCALE);
         std::copy(std::begin(MountCreatureID), std::end(MountCreatureID), std::begin(data->MountCreatureID));
         return data;
+    }
+
+    bool operator==(TaxiNodesEntry5875 const& other) const
+    {
+        if (other.ID != ID)
+            return false;
+        if (other.map_id != map_id)
+            return false;
+        if (other.x != x)
+            return false;
+        if (other.y != y)
+            return false;
+        if (other.z != z)
+            return false;
+
+        if (!CompareStringArrays(other.name, name, MAX_DBC_LOCALE))
+            return false;
+
+        if (!std::equal(std::begin(MountCreatureID), std::end(MountCreatureID), std::begin(other.MountCreatureID)))
+            return false;
+
+        return true;
+    }
+
+    bool operator!=(TaxiNodesEntry5875 const& other) const
+    {
+        return !(other == *this);
     }
 };
 
@@ -1512,7 +1978,7 @@ struct TaxiNodesEntry5302
         data->x = x;
         data->y = y;
         data->z = z;
-        std::copy(std::begin(name), std::end(name), std::begin(data->name));
+        CopyStringArrays(name, data->name, MAX_DBC_LOCALE);
         std::fill(std::begin(data->MountCreatureID), std::end(data->MountCreatureID), 0);
         return data;
     }
@@ -1551,6 +2017,39 @@ struct SkillLineAbilityEntry5875
         data->reqtrainpoints = reqtrainpoints;
         return data;
     }
+
+    bool operator==(SkillLineAbilityEntry5875 const& other) const
+    {
+        if (other.id != id)
+            return false;
+        if (other.skillId != skillId)
+            return false;
+        if (other.spellId != spellId)
+            return false;
+        if (other.racemask != racemask)
+            return false;
+        if (other.classmask != classmask)
+            return false;
+        if (other.req_skill_value != req_skill_value)
+            return false;
+        if (other.forward_spellid != forward_spellid)
+            return false;
+        if (other.learnOnGetSkill != learnOnGetSkill)
+            return false;
+        if (other.max_value != max_value)
+            return false;
+        if (other.min_value != min_value)
+            return false;
+        if (other.reqtrainpoints != reqtrainpoints)
+            return false;
+
+        return true;
+    }
+
+    bool operator!=(SkillLineAbilityEntry5875 const& other) const
+    {
+        return !(other == *this);
+    }
 };
 
 struct CreatureSpellDataEntry5875
@@ -1566,6 +2065,22 @@ struct CreatureSpellDataEntry5875
         std::copy(std::begin(spellId), std::end(spellId), std::begin(data->spellId));
         return data;
     }
+
+    bool operator==(CreatureSpellDataEntry5875 const& other) const
+    {
+        if (other.ID != ID)
+            return false;
+
+        if (!std::equal(std::begin(spellId), std::end(spellId), std::begin(other.spellId)))
+            return false;
+
+        return true;
+    }
+
+    bool operator!=(CreatureSpellDataEntry5875 const& other) const
+    {
+        return !(other == *this);
+    }
 };
 
 struct MailTemplateEntry5875
@@ -1578,8 +2093,24 @@ struct MailTemplateEntry5875
     {
         MailTemplateEntry5875* data = new MailTemplateEntry5875();
         data->ID = ID;
-        std::copy(std::begin(subject), std::end(subject), std::begin(data->subject));
+        CopyStringArrays(subject, data->subject, MAX_DBC_LOCALE);
         return data;
+    }
+
+    bool operator==(MailTemplateEntry5875 const& other) const
+    {
+        if (other.ID != ID)
+            return false;
+
+        if (!CompareStringArrays(other.subject, subject, MAX_DBC_LOCALE))
+            return false;
+
+        return true;
+    }
+
+    bool operator!=(MailTemplateEntry5875 const& other) const
+    {
+        return !(other == *this);
     }
 };
 

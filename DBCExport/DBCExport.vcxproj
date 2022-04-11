@@ -186,6 +186,7 @@
     <ClInclude Include="SharedDefines.h" />
     <ClInclude Include="DBCStructure.h" />
     <ClInclude Include="Threading.h" />
+    <ClInclude Include="Utility.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

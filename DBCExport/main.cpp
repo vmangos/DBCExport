@@ -7,6 +7,7 @@
 #include "Common.h"
 #include <iostream>
 #include <fstream>
+#include <set>
 #include "Database\Database.h"
 
 static bool ReadDBCBuildFileText(const std::string& dbc_path, char const* localeName, std::string& text)
@@ -216,6 +217,15 @@ void LoadAllDbcFiles(uint32 build, std::string dbcPath, std::vector<AreaTriggerE
     StoreProblemList bad_dbc_files;
     uint32 availableDbcLocales = 0xFFFFFFFF;
 
+    sAreaTriggerStore5875.Clear();
+    sTaxiNodeStore5875.Clear();
+    sFactionStore5875.Clear();
+    sFactionTemplateStore5875.Clear();
+    sSpellStore5875.Clear();
+    sSkillLineAbilityStore5875.Clear();
+    sCreatureSpellDataStore5875.Clear();
+    sMailTemplateStore5875.Clear();
+
     switch (build)
     {
         case 5875:
@@ -405,27 +415,24 @@ void LoadAllDbcFiles(uint32 build, std::string dbcPath, std::vector<AreaTriggerE
     }
 }
 
-int main()
+std::pair<std::string, uint32> GetDbcPathAndBuild()
 {
-    StoreProblemList bad_dbc_files;
-    uint32 availableDbcLocales = 0xFFFFFFFF;
-    
-    printf("This tool converts the needed dbc storages into sql files. \n");
-    printf("Please enter the path to the dbc files and the build they are from.\n\n");
-
-    std::string dbcPath;
     printf("Path: ");
-    getline(std::cin, dbcPath);
-    if (dbcPath.empty())
-        dbcPath = "dbc/";
+    std::string dbcPath = GetString("dbc/");
 
-    std::string buildString;
     printf("Build: ");
-    getline(std::cin, buildString);
-    if (buildString.empty())
-        buildString = "5875";
+    std::string buildString = GetString("5875");
 
     uint32 build = strtoul(buildString.c_str(), NULL, 0);
+
+    return std::make_pair(dbcPath, build);
+}
+
+void ExportAllDbcFilesToSql()
+{
+    std::string dbcPath;
+    uint32 build;
+    std::tie(dbcPath, build) = GetDbcPathAndBuild();
 
     std::vector<AreaTriggerEntry5875*> areaTriggerStore;
     std::vector<TaxiNodesEntry5875*> taxiNodesStore;
@@ -445,8 +452,144 @@ int main()
     ExportTaxiNodes(build, taxiNodesStore);
     ExportCreatureSpellData(build, creatureSpellDataStore);
     ExportMailTemplates(build, mailTemplateStore);
+}
+
+template <class T>
+void CompareDbcStores(std::vector<T*> store1, std::vector<T*> store2, std::set<size_t>& added, std::set<size_t>& removed, std::set<size_t>& changed)
+{
+    size_t count = std::min(store1.size(), store2.size());
+    for (size_t i = 0; i < count; i++)
+    {
+        if (store1[i] && !store2[i])
+            removed.insert(i);
+        else if (!store1[i] && store2[i])
+            added.insert(i);
+        else if (store1[i] && store2[i] && (*store1[i]) != (*store2[i]))
+            changed.insert(i);
+    }
+
+    if (store1.size() > store2.size())
+    {
+        for (size_t i = store2.size(); i < store1.size(); i++)
+        {
+            if (store1[i])
+                removed.insert(i);
+        }
+    }
+    else if (store2.size() > store1.size())
+    {
+        for (size_t i = store1.size(); i < store2.size(); i++)
+        {
+            if (store2[i])
+                added.insert(i);
+        }
+    }
+
+    printf("Added: %u\n", (uint32)added.size());
+    printf("Removed: %u\n", (uint32)removed.size());
+    printf("Changed: %u\n", (uint32)changed.size());
+}
+
+void CompareDBCs()
+{
+    std::string dbcPath1, dbcPath2;
+    uint32 build1, build2;
+    std::tie(dbcPath1, build1) = GetDbcPathAndBuild();
+    std::tie(dbcPath2, build2) = GetDbcPathAndBuild();
+
+    std::vector<AreaTriggerEntry5875*> areaTriggerStore1, areaTriggerStore2;
+    std::vector<TaxiNodesEntry5875*> taxiNodesStore1, taxiNodesStore2;
+    std::vector<FactionEntry5875*> factionStore1, factionStore2;
+    std::vector<FactionTemplateEntry5875*> factionTemplateStore1, factionTemplateStore2;
+    std::vector<SpellEntry5875*> spellStore1, spellStore2;
+    std::vector<SkillLineAbilityEntry5875*> skillLineAbilityStore1, skillLineAbilityStore2;
+    std::vector<CreatureSpellDataEntry5875*> creatureSpellDataStore1, creatureSpellDataStore2;
+    std::vector<MailTemplateEntry5875*> mailTemplateStore1, mailTemplateStore2;
+
+    printf("Loading dbcs from %s\n", dbcPath1.c_str());
+    LoadAllDbcFiles(build1, dbcPath1, areaTriggerStore1, taxiNodesStore1, factionStore1, factionTemplateStore1, spellStore1, skillLineAbilityStore1, creatureSpellDataStore1, mailTemplateStore1);
+    printf("Loading dbcs from %s\n", dbcPath2.c_str());
+    LoadAllDbcFiles(build2, dbcPath2, areaTriggerStore2, taxiNodesStore2, factionStore2, factionTemplateStore2, spellStore2, skillLineAbilityStore2, creatureSpellDataStore2, mailTemplateStore2);
+
+    printf("Select dbc to compare:\n");
+    printf("1. AreaTrigger\n");
+    printf("2. TaxiNodes\n");
+    printf("3. Faction\n");
+    printf("4. FactionTemplate\n");
+    printf("5. Spell\n");
+    printf("6. SkillLineAbility\n");
+    printf("7. CreatureSpellData\n");
+    printf("8. MailTemplate\n");
+
+    std::set<size_t> added;
+    std::set<size_t> removed;
+    std::set<size_t> changed;
+
+    uint32 option = GetUInt32();
+    switch (option)
+    {
+        case 1:
+            CompareDbcStores(areaTriggerStore1, areaTriggerStore2, added, removed, changed);
+            break;
+        case 2:
+            CompareDbcStores(taxiNodesStore1, taxiNodesStore2, added, removed, changed);
+            break;
+        case 3:
+            CompareDbcStores(factionStore1, factionStore2, added, removed, changed);
+            break;
+        case 4:
+            CompareDbcStores(factionTemplateStore1, factionTemplateStore2, added, removed, changed);
+            break;
+        case 5:
+            CompareDbcStores(spellStore1, spellStore2, added, removed, changed);
+            break;
+        case 6:
+            CompareDbcStores(skillLineAbilityStore1, skillLineAbilityStore2, added, removed, changed);
+            break;
+        case 7:
+            CompareDbcStores(creatureSpellDataStore1, creatureSpellDataStore2, added, removed, changed);
+            break;
+        case 8:
+            CompareDbcStores(mailTemplateStore1, mailTemplateStore2, added, removed, changed);
+            break;
+        default:
+            printf("Invalid selection.");
+            break;
+    }
+}
+
+int main()
+{
+    StoreProblemList bad_dbc_files;
+    uint32 availableDbcLocales = 0xFFFFFFFF;
+    
+    printf("This tool converts the needed dbc storages into sql files. \n");
+    printf("Please enter the path to the dbc files and the build they are from.\n\n");
+
+    printf("1. Export to SQL\n");
+    printf("2. Compare versions\n");
+    uint32 option = GetUInt32();
+
+    switch (option)
+    {
+        case 1:
+        {
+            ExportAllDbcFilesToSql();
+            break;
+        }
+        case 2:
+        {
+            CompareDBCs();
+            break;
+        }
+        default:
+        {
+            printf("Invalid selection.");
+            return 1;
+        }
+    }
 
     printf("Done.\n");
-    getchar();
+    GetChar();
     return 0;
 }
