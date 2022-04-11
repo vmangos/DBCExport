@@ -1,15 +1,10 @@
-void ExportAreaTriggers5875(unsigned int build);
-void ExportTaxiNodes5875(unsigned int build);
-void ExportTaxiNodes5302(unsigned int build);
-void ExportSpells5875(unsigned int build);
-void ExportSpells5464(unsigned int build);
-void ExportSpells5302(unsigned int build);
-void ExportSpells4878(unsigned int build);
-void ExportSpells4695(unsigned int build);
-void ExportSpells4449(unsigned int build);
-void ExportSpells4297(unsigned int build);
-void ExportSkillLineAbilities5875(unsigned int build);
-void ExportFactions5875(unsigned int build);
-void ExportFactions4297(unsigned int build);
-void ExportCreatureSpellData5875(unsigned int build);
-void ExportMailTemplates5875(unsigned int build);
+#include <vector>
+
+void ExportAreaTriggers(unsigned int build, std::vector<AreaTriggerEntry5875*> const& areaTriggerStore);
+void ExportTaxiNodes(unsigned int build, std::vector<TaxiNodesEntry5875*> const& taxiNodesStore);
+void ExportSpells(unsigned int build, std::vector<SpellEntry5875*> const& spellStore);
+void ExportSkillLineAbilities(unsigned int build, std::vector<SkillLineAbilityEntry5875*> const& skillLineAbilityStore);
+void ExportFactions(unsigned int build, std::vector<FactionEntry5875*> const& factionStore);
+void ExportFactionTemplates(unsigned int build, std::vector<FactionTemplateEntry5875*> const& factionTemplateStore);
+void ExportCreatureSpellData(unsigned int build, std::vector<CreatureSpellDataEntry5875*> const& creatureSpellDataStore);
+void ExportMailTemplates(unsigned int build, std::vector<MailTemplateEntry5875*> const& mailTemplateStore);

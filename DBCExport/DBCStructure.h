@@ -21,6 +21,22 @@ struct AreaTriggerEntry5875
     float     box_y;                                        // 7 extent y edge
     float     box_z;                                        // 8 extent z edge
     float     box_orientation;                              // 9 extent rotation by about z axis
+
+    AreaTriggerEntry5875* ToLatestStructure() const
+    {
+        AreaTriggerEntry5875* data = new AreaTriggerEntry5875();
+        data->id = id;
+        data->mapid = mapid;
+        data->x = x;
+        data->y = y;
+        data->z = z;
+        data->radius = radius;
+        data->box_x = box_x;
+        data->box_y = box_y;
+        data->box_z = box_z;
+        data->box_orientation = box_orientation;
+        return data;
+    }
 };
 
 struct ClassFamilyMask
@@ -127,13 +143,13 @@ struct SpellEntry5875
     uint32    SpellIconID;                                  // 117
     uint32    activeIconID;                                 // 118
     uint32    spellPriority;                                // 119
-    char*     SpellName[8];                                 // 120-127
+    char*     SpellName[MAX_DBC_LOCALE];                    // 120-127
     uint32    SpellNameFlag;                                // 128
-    char*     Rank[8];                                      // 129-136
+    char*     Rank[MAX_DBC_LOCALE];                         // 129-136
     uint32    RankFlags;                                    // 137
-    char*     Description[8];                               // 138-145
+    char*     Description[MAX_DBC_LOCALE];                  // 138-145
     uint32    DescriptionFlags;                             // 146
-    char*     ToolTip[8];                                   // 147-154
+    char*     ToolTip[MAX_DBC_LOCALE];                      // 147-154
     uint32    ToolTipFlags;                                 // 155
     uint32    ManaCostPercentage;                           // 156
     uint32    StartRecoveryCategory;                        // 157
@@ -149,6 +165,103 @@ struct SpellEntry5875
     uint32    MinFactionId;                                 // 170
     uint32    MinReputation;                                // 171
     uint32    RequiredAuraVision;                           // 172
+
+    SpellEntry5875* ToLatestStructure() const
+    {
+        SpellEntry5875* data = new SpellEntry5875();
+        data->Id = Id;
+        data->School = School;
+        data->Category = Category;
+        data->castUI = castUI;
+        data->Dispel = Dispel;
+        data->Mechanic = Mechanic;
+        data->Attributes = Attributes;
+        data->AttributesEx = AttributesEx;
+        data->AttributesEx2 = AttributesEx2;
+        data->AttributesEx3 = AttributesEx3;
+        data->AttributesEx4 = AttributesEx4;
+        data->Stances = Stances;
+        data->StancesNot = StancesNot;
+        data->Targets = Targets;
+        data->TargetCreatureType = TargetCreatureType;
+        data->RequiresSpellFocus = RequiresSpellFocus;
+        data->CasterAuraState = CasterAuraState;
+        data->TargetAuraState = TargetAuraState;
+        data->CastingTimeIndex = CastingTimeIndex;
+        data->RecoveryTime = RecoveryTime;
+        data->CategoryRecoveryTime = CategoryRecoveryTime;
+        data->InterruptFlags = InterruptFlags;
+        data->AuraInterruptFlags = AuraInterruptFlags;
+        data->ChannelInterruptFlags = ChannelInterruptFlags;
+        data->procFlags = procFlags;
+        data->procChance = procChance;
+        data->procCharges = procCharges;
+        data->maxLevel = maxLevel;
+        data->baseLevel = baseLevel;
+        data->spellLevel = spellLevel;
+        data->DurationIndex = DurationIndex;
+        data->powerType = powerType;
+        data->manaCost = manaCost;
+        data->manaCostPerlevel = manaCostPerlevel;
+        data->manaPerSecond = manaPerSecond;
+        data->manaPerSecondPerLevel = manaPerSecondPerLevel;
+        data->rangeIndex = rangeIndex;
+        data->speed = speed;
+        data->modalNextSpell = modalNextSpell;
+        data->StackAmount = StackAmount;
+        std::copy(std::begin(Totem), std::end(Totem), std::begin(data->Totem));
+        std::copy(std::begin(Reagent), std::end(Reagent), std::begin(data->Reagent));
+        std::copy(std::begin(ReagentCount), std::end(ReagentCount), std::begin(data->ReagentCount));
+        data->EquippedItemClass = EquippedItemClass;
+        data->EquippedItemSubClassMask = EquippedItemSubClassMask;
+        data->EquippedItemInventoryTypeMask = EquippedItemInventoryTypeMask;
+        std::copy(std::begin(Effect), std::end(Effect), std::begin(data->Effect));
+        std::copy(std::begin(EffectDieSides), std::end(EffectDieSides), std::begin(data->EffectDieSides));
+        std::copy(std::begin(EffectBaseDice), std::end(EffectBaseDice), std::begin(data->EffectBaseDice));
+        std::copy(std::begin(EffectDicePerLevel), std::end(EffectDicePerLevel), std::begin(data->EffectDicePerLevel));
+        std::copy(std::begin(EffectRealPointsPerLevel), std::end(EffectRealPointsPerLevel), std::begin(data->EffectRealPointsPerLevel));
+        std::copy(std::begin(EffectBasePoints), std::end(EffectBasePoints), std::begin(data->EffectBasePoints));
+        std::copy(std::begin(EffectMechanic), std::end(EffectMechanic), std::begin(data->EffectMechanic));
+        std::copy(std::begin(EffectImplicitTargetA), std::end(EffectImplicitTargetA), std::begin(data->EffectImplicitTargetA));
+        std::copy(std::begin(EffectImplicitTargetB), std::end(EffectImplicitTargetB), std::begin(data->EffectImplicitTargetB));
+        std::copy(std::begin(EffectRadiusIndex), std::end(EffectRadiusIndex), std::begin(data->EffectRadiusIndex));
+        std::copy(std::begin(EffectApplyAuraName), std::end(EffectApplyAuraName), std::begin(data->EffectApplyAuraName));
+        std::copy(std::begin(EffectAmplitude), std::end(EffectAmplitude), std::begin(data->EffectAmplitude));
+        std::copy(std::begin(EffectMultipleValue), std::end(EffectMultipleValue), std::begin(data->EffectMultipleValue));
+        std::copy(std::begin(EffectChainTarget), std::end(EffectChainTarget), std::begin(data->EffectChainTarget));
+        std::copy(std::begin(EffectItemType), std::end(EffectItemType), std::begin(data->EffectItemType));
+        std::copy(std::begin(EffectMiscValue), std::end(EffectMiscValue), std::begin(data->EffectMiscValue));
+        std::copy(std::begin(EffectTriggerSpell), std::end(EffectTriggerSpell), std::begin(data->EffectTriggerSpell));
+        std::copy(std::begin(EffectPointsPerComboPoint), std::end(EffectPointsPerComboPoint), std::begin(data->EffectPointsPerComboPoint));
+        data->SpellVisual = SpellVisual;
+        data->SpellVisual2 = SpellVisual2;
+        data->SpellIconID = SpellIconID;
+        data->activeIconID = activeIconID;
+        data->spellPriority = spellPriority;
+        std::copy(std::begin(SpellName), std::end(SpellName), std::begin(data->SpellName));
+        data->SpellNameFlag = SpellNameFlag;
+        std::copy(std::begin(Rank), std::end(Rank), std::begin(data->Rank));
+        data->RankFlags = RankFlags;
+        std::copy(std::begin(Description), std::end(Description), std::begin(data->Description));
+        data->DescriptionFlags = DescriptionFlags;
+        std::copy(std::begin(ToolTip), std::end(ToolTip), std::begin(data->ToolTip));
+        data->ToolTipFlags = ToolTipFlags;
+        data->ManaCostPercentage = ManaCostPercentage;
+        data->StartRecoveryCategory = StartRecoveryCategory;
+        data->StartRecoveryTime = StartRecoveryTime;
+        data->MaxTargetLevel = MaxTargetLevel;
+        data->SpellFamilyName = SpellFamilyName;
+        data->SpellFamilyFlags = SpellFamilyFlags;
+        data->MaxAffectedTargets = MaxAffectedTargets;
+        data->DmgClass = DmgClass;
+        data->PreventionType = PreventionType;
+        data->StanceBarOrder = StanceBarOrder;
+        std::copy(std::begin(DmgMultiplier), std::end(DmgMultiplier), std::begin(data->DmgMultiplier));
+        data->MinFactionId = MinFactionId;
+        data->MinReputation = MinReputation;
+        data->RequiredAuraVision = RequiredAuraVision;
+        return data;
+    }
 };
 
 struct SpellEntry5464
@@ -219,13 +332,13 @@ struct SpellEntry5464
     uint32    SpellIconID;                                  // 114
     uint32    activeIconID;                                 // 115
     uint32    spellPriority;                                // 116
-    char*     SpellName[8];                                 // 117-124
+    char*     SpellName[MAX_DBC_LOCALE];                    // 117-124
     uint32    SpellNameFlag;                                // 125
-    char*     Rank[8];                                      // 126-133
+    char*     Rank[MAX_DBC_LOCALE];                         // 126-133
     uint32    RankFlags;                                    // 134
-    char*     Description[8];                               // 135-142
+    char*     Description[MAX_DBC_LOCALE];                  // 135-142
     uint32    DescriptionFlags;                             // 143
-    char*     ToolTip[8];                                   // 144-151
+    char*     ToolTip[MAX_DBC_LOCALE];                      // 144-151
     uint32    ToolTipFlags;                                 // 152
     uint32    ManaCostPercentage;                           // 153
     uint32    StartRecoveryCategory;                        // 154
@@ -242,6 +355,103 @@ struct SpellEntry5464
     uint32    MinFactionId;                                 // 168
     uint32    MinReputation;                                // 169
     uint32    RequiredAuraVision;                           // 170
+
+    SpellEntry5875* ToLatestStructure() const
+    {
+        SpellEntry5875* data = new SpellEntry5875();
+        data->Id = Id;
+        data->School = School;
+        data->Category = Category;
+        data->castUI = castUI;
+        data->Dispel = Dispel;
+        data->Mechanic = Mechanic;
+        data->Attributes = Attributes;
+        data->AttributesEx = AttributesEx;
+        data->AttributesEx2 = AttributesEx2;
+        data->AttributesEx3 = AttributesEx3;
+        data->AttributesEx4 = 0;
+        data->Stances = Stances;
+        data->StancesNot = StancesNot;
+        data->Targets = Targets;
+        data->TargetCreatureType = TargetCreatureType;
+        data->RequiresSpellFocus = RequiresSpellFocus;
+        data->CasterAuraState = CasterAuraState;
+        data->TargetAuraState = TargetAuraState;
+        data->CastingTimeIndex = CastingTimeIndex;
+        data->RecoveryTime = RecoveryTime;
+        data->CategoryRecoveryTime = CategoryRecoveryTime;
+        data->InterruptFlags = InterruptFlags;
+        data->AuraInterruptFlags = AuraInterruptFlags;
+        data->ChannelInterruptFlags = ChannelInterruptFlags;
+        data->procFlags = procFlags;
+        data->procChance = procChance;
+        data->procCharges = procCharges;
+        data->maxLevel = maxLevel;
+        data->baseLevel = baseLevel;
+        data->spellLevel = spellLevel;
+        data->DurationIndex = DurationIndex;
+        data->powerType = powerType;
+        data->manaCost = manaCost;
+        data->manaCostPerlevel = manaCostPerlevel;
+        data->manaPerSecond = manaPerSecond;
+        data->manaPerSecondPerLevel = manaPerSecondPerLevel;
+        data->rangeIndex = rangeIndex;
+        data->speed = speed;
+        data->modalNextSpell = modalNextSpell;
+        data->StackAmount = StackAmount;
+        std::copy(std::begin(Totem), std::end(Totem), std::begin(data->Totem));
+        std::copy(std::begin(Reagent), std::end(Reagent), std::begin(data->Reagent));
+        std::copy(std::begin(ReagentCount), std::end(ReagentCount), std::begin(data->ReagentCount));
+        data->EquippedItemClass = EquippedItemClass;
+        data->EquippedItemSubClassMask = EquippedItemSubClassMask;
+        data->EquippedItemInventoryTypeMask = 0;
+        std::copy(std::begin(Effect), std::end(Effect), std::begin(data->Effect));
+        std::copy(std::begin(EffectDieSides), std::end(EffectDieSides), std::begin(data->EffectDieSides));
+        std::copy(std::begin(EffectBaseDice), std::end(EffectBaseDice), std::begin(data->EffectBaseDice));
+        std::copy(std::begin(EffectDicePerLevel), std::end(EffectDicePerLevel), std::begin(data->EffectDicePerLevel));
+        std::copy(std::begin(EffectRealPointsPerLevel), std::end(EffectRealPointsPerLevel), std::begin(data->EffectRealPointsPerLevel));
+        std::copy(std::begin(EffectBasePoints), std::end(EffectBasePoints), std::begin(data->EffectBasePoints));
+        std::copy(std::begin(EffectMechanic), std::end(EffectMechanic), std::begin(data->EffectMechanic));
+        std::copy(std::begin(EffectImplicitTargetA), std::end(EffectImplicitTargetA), std::begin(data->EffectImplicitTargetA));
+        std::copy(std::begin(EffectImplicitTargetB), std::end(EffectImplicitTargetB), std::begin(data->EffectImplicitTargetB));
+        std::copy(std::begin(EffectRadiusIndex), std::end(EffectRadiusIndex), std::begin(data->EffectRadiusIndex));
+        std::copy(std::begin(EffectApplyAuraName), std::end(EffectApplyAuraName), std::begin(data->EffectApplyAuraName));
+        std::copy(std::begin(EffectAmplitude), std::end(EffectAmplitude), std::begin(data->EffectAmplitude));
+        std::copy(std::begin(EffectMultipleValue), std::end(EffectMultipleValue), std::begin(data->EffectMultipleValue));
+        std::copy(std::begin(EffectChainTarget), std::end(EffectChainTarget), std::begin(data->EffectChainTarget));
+        std::copy(std::begin(EffectItemType), std::end(EffectItemType), std::begin(data->EffectItemType));
+        std::copy(std::begin(EffectMiscValue), std::end(EffectMiscValue), std::begin(data->EffectMiscValue));
+        std::copy(std::begin(EffectTriggerSpell), std::end(EffectTriggerSpell), std::begin(data->EffectTriggerSpell));
+        std::copy(std::begin(EffectPointsPerComboPoint), std::end(EffectPointsPerComboPoint), std::begin(data->EffectPointsPerComboPoint));
+        data->SpellVisual = SpellVisual;
+        data->SpellVisual2 = SpellVisual2;
+        data->SpellIconID = SpellIconID;
+        data->activeIconID = activeIconID;
+        data->spellPriority = spellPriority;
+        std::copy(std::begin(SpellName), std::end(SpellName), std::begin(data->SpellName));
+        data->SpellNameFlag = SpellNameFlag;
+        std::copy(std::begin(Rank), std::end(Rank), std::begin(data->Rank));
+        data->RankFlags = RankFlags;
+        std::copy(std::begin(Description), std::end(Description), std::begin(data->Description));
+        data->DescriptionFlags = DescriptionFlags;
+        std::copy(std::begin(ToolTip), std::end(ToolTip), std::begin(data->ToolTip));
+        data->ToolTipFlags = ToolTipFlags;
+        data->ManaCostPercentage = ManaCostPercentage;
+        data->StartRecoveryCategory = StartRecoveryCategory;
+        data->StartRecoveryTime = StartRecoveryTime;
+        data->MaxTargetLevel = MaxTargetLevel;
+        data->SpellFamilyName = SpellFamilyName;
+        data->SpellFamilyFlags = SpellFamilyFlags;
+        data->MaxAffectedTargets = MaxAffectedTargets;
+        data->DmgClass = DmgClass;
+        data->PreventionType = PreventionType;
+        data->StanceBarOrder = StanceBarOrder;
+        std::copy(std::begin(DmgMultiplier), std::end(DmgMultiplier), std::begin(data->DmgMultiplier));
+        data->MinFactionId = MinFactionId;
+        data->MinReputation = MinReputation;
+        data->RequiredAuraVision = RequiredAuraVision;
+        return data;
+    }
 };
 
 struct SpellEntry5302
@@ -312,13 +522,13 @@ struct SpellEntry5302
     uint32    SpellIconID;                                  // 114
     uint32    activeIconID;                                 // 115
     uint32    spellPriority;                                // 116
-    char*     SpellName[8];                                 // 117-124
+    char*     SpellName[MAX_DBC_LOCALE];                    // 117-124
     uint32    SpellNameFlag;                                // 125
-    char*     Rank[8];                                      // 126-133
+    char*     Rank[MAX_DBC_LOCALE];                         // 126-133
     uint32    RankFlags;                                    // 134
-    char*     Description[8];                               // 135-142
+    char*     Description[MAX_DBC_LOCALE];                  // 135-142
     uint32    DescriptionFlags;                             // 143
-    char*     ToolTip[8];                                   // 144-151
+    char*     ToolTip[MAX_DBC_LOCALE];                      // 144-151
     uint32    ToolTipFlags;                                 // 152
     uint32    ManaCostPercentage;                           // 153
     uint32    StartRecoveryCategory;                        // 154
@@ -335,6 +545,103 @@ struct SpellEntry5302
     uint32    MinFactionId;                                 // 167
     uint32    MinReputation;                                // 168
     uint32    RequiredAuraVision;                           // 169
+
+    SpellEntry5875* ToLatestStructure() const
+    {
+        SpellEntry5875* data = new SpellEntry5875();
+        data->Id = Id;
+        data->School = School;
+        data->Category = Category;
+        data->castUI = castUI;
+        data->Dispel = Dispel;
+        data->Mechanic = Mechanic;
+        data->Attributes = Attributes;
+        data->AttributesEx = AttributesEx;
+        data->AttributesEx2 = AttributesEx2;
+        data->AttributesEx3 = AttributesEx3;
+        data->AttributesEx4 = 0;
+        data->Stances = Stances;
+        data->StancesNot = StancesNot;
+        data->Targets = Targets;
+        data->TargetCreatureType = TargetCreatureType;
+        data->RequiresSpellFocus = RequiresSpellFocus;
+        data->CasterAuraState = CasterAuraState;
+        data->TargetAuraState = TargetAuraState;
+        data->CastingTimeIndex = CastingTimeIndex;
+        data->RecoveryTime = RecoveryTime;
+        data->CategoryRecoveryTime = CategoryRecoveryTime;
+        data->InterruptFlags = InterruptFlags;
+        data->AuraInterruptFlags = AuraInterruptFlags;
+        data->ChannelInterruptFlags = ChannelInterruptFlags;
+        data->procFlags = procFlags;
+        data->procChance = procChance;
+        data->procCharges = procCharges;
+        data->maxLevel = maxLevel;
+        data->baseLevel = baseLevel;
+        data->spellLevel = spellLevel;
+        data->DurationIndex = DurationIndex;
+        data->powerType = powerType;
+        data->manaCost = manaCost;
+        data->manaCostPerlevel = manaCostPerlevel;
+        data->manaPerSecond = manaPerSecond;
+        data->manaPerSecondPerLevel = manaPerSecondPerLevel;
+        data->rangeIndex = rangeIndex;
+        data->speed = speed;
+        data->modalNextSpell = modalNextSpell;
+        data->StackAmount = StackAmount;
+        std::copy(std::begin(Totem), std::end(Totem), std::begin(data->Totem));
+        std::copy(std::begin(Reagent), std::end(Reagent), std::begin(data->Reagent));
+        std::copy(std::begin(ReagentCount), std::end(ReagentCount), std::begin(data->ReagentCount));
+        data->EquippedItemClass = EquippedItemClass;
+        data->EquippedItemSubClassMask = EquippedItemSubClassMask;
+        data->EquippedItemInventoryTypeMask = 0;
+        std::copy(std::begin(Effect), std::end(Effect), std::begin(data->Effect));
+        std::copy(std::begin(EffectDieSides), std::end(EffectDieSides), std::begin(data->EffectDieSides));
+        std::copy(std::begin(EffectBaseDice), std::end(EffectBaseDice), std::begin(data->EffectBaseDice));
+        std::copy(std::begin(EffectDicePerLevel), std::end(EffectDicePerLevel), std::begin(data->EffectDicePerLevel));
+        std::copy(std::begin(EffectRealPointsPerLevel), std::end(EffectRealPointsPerLevel), std::begin(data->EffectRealPointsPerLevel));
+        std::copy(std::begin(EffectBasePoints), std::end(EffectBasePoints), std::begin(data->EffectBasePoints));
+        std::copy(std::begin(EffectMechanic), std::end(EffectMechanic), std::begin(data->EffectMechanic));
+        std::copy(std::begin(EffectImplicitTargetA), std::end(EffectImplicitTargetA), std::begin(data->EffectImplicitTargetA));
+        std::copy(std::begin(EffectImplicitTargetB), std::end(EffectImplicitTargetB), std::begin(data->EffectImplicitTargetB));
+        std::copy(std::begin(EffectRadiusIndex), std::end(EffectRadiusIndex), std::begin(data->EffectRadiusIndex));
+        std::copy(std::begin(EffectApplyAuraName), std::end(EffectApplyAuraName), std::begin(data->EffectApplyAuraName));
+        std::copy(std::begin(EffectAmplitude), std::end(EffectAmplitude), std::begin(data->EffectAmplitude));
+        std::copy(std::begin(EffectMultipleValue), std::end(EffectMultipleValue), std::begin(data->EffectMultipleValue));
+        std::copy(std::begin(EffectChainTarget), std::end(EffectChainTarget), std::begin(data->EffectChainTarget));
+        std::copy(std::begin(EffectItemType), std::end(EffectItemType), std::begin(data->EffectItemType));
+        std::copy(std::begin(EffectMiscValue), std::end(EffectMiscValue), std::begin(data->EffectMiscValue));
+        std::copy(std::begin(EffectTriggerSpell), std::end(EffectTriggerSpell), std::begin(data->EffectTriggerSpell));
+        std::copy(std::begin(EffectPointsPerComboPoint), std::end(EffectPointsPerComboPoint), std::begin(data->EffectPointsPerComboPoint));
+        data->SpellVisual = SpellVisual;
+        data->SpellVisual2 = SpellVisual2;
+        data->SpellIconID = SpellIconID;
+        data->activeIconID = activeIconID;
+        data->spellPriority = spellPriority;
+        std::copy(std::begin(SpellName), std::end(SpellName), std::begin(data->SpellName));
+        data->SpellNameFlag = SpellNameFlag;
+        std::copy(std::begin(Rank), std::end(Rank), std::begin(data->Rank));
+        data->RankFlags = RankFlags;
+        std::copy(std::begin(Description), std::end(Description), std::begin(data->Description));
+        data->DescriptionFlags = DescriptionFlags;
+        std::copy(std::begin(ToolTip), std::end(ToolTip), std::begin(data->ToolTip));
+        data->ToolTipFlags = ToolTipFlags;
+        data->ManaCostPercentage = ManaCostPercentage;
+        data->StartRecoveryCategory = StartRecoveryCategory;
+        data->StartRecoveryTime = StartRecoveryTime;
+        data->MaxTargetLevel = MaxTargetLevel;
+        data->SpellFamilyName = SpellFamilyName;
+        data->SpellFamilyFlags = ClassFamilyMask(SpellFamilyFlags);
+        data->MaxAffectedTargets = MaxAffectedTargets;
+        data->DmgClass = DmgClass;
+        data->PreventionType = PreventionType;
+        data->StanceBarOrder = StanceBarOrder;
+        std::copy(std::begin(DmgMultiplier), std::end(DmgMultiplier), std::begin(data->DmgMultiplier));
+        data->MinFactionId = MinFactionId;
+        data->MinReputation = MinReputation;
+        data->RequiredAuraVision = RequiredAuraVision;
+        return data;
+    }
 };
 
 struct SpellEntry4878
@@ -405,13 +712,13 @@ struct SpellEntry4878
     uint32    SpellIconID;                                  // 114
     uint32    activeIconID;                                 // 115
     uint32    spellPriority;                                // 116
-    char*     SpellName[8];                                 // 117-124
+    char*     SpellName[MAX_DBC_LOCALE];                    // 117-124
     uint32    SpellNameFlag;                                // 125
-    char*     Rank[8];                                      // 126-133
+    char*     Rank[MAX_DBC_LOCALE];                         // 126-133
     uint32    RankFlags;                                    // 134
-    char*     Description[8];                               // 135-142
+    char*     Description[MAX_DBC_LOCALE];                  // 135-142
     uint32    DescriptionFlags;                             // 143
-    char*     ToolTip[8];                                   // 144-151
+    char*     ToolTip[MAX_DBC_LOCALE];                      // 144-151
     uint32    ToolTipFlags;                                 // 152
     uint32    ManaCostPercentage;                           // 153
     uint32    StartRecoveryCategory;                        // 154
@@ -425,6 +732,103 @@ struct SpellEntry4878
     int32     StanceBarOrder;                               // 162
     float     DmgMultiplier[MAX_EFFECT_INDEX];              // 163-165
     uint32    AttributesEx3;                                // 166
+
+    SpellEntry5875* ToLatestStructure() const
+    {
+        SpellEntry5875* data = new SpellEntry5875();
+        data->Id = Id;
+        data->School = School;
+        data->Category = Category;
+        data->castUI = castUI;
+        data->Dispel = Dispel;
+        data->Mechanic = Mechanic;
+        data->Attributes = Attributes;
+        data->AttributesEx = AttributesEx;
+        data->AttributesEx2 = AttributesEx2;
+        data->AttributesEx3 = AttributesEx3;
+        data->AttributesEx4 = 0;
+        data->Stances = Stances;
+        data->StancesNot = StancesNot;
+        data->Targets = Targets;
+        data->TargetCreatureType = TargetCreatureType;
+        data->RequiresSpellFocus = RequiresSpellFocus;
+        data->CasterAuraState = CasterAuraState;
+        data->TargetAuraState = TargetAuraState;
+        data->CastingTimeIndex = CastingTimeIndex;
+        data->RecoveryTime = RecoveryTime;
+        data->CategoryRecoveryTime = CategoryRecoveryTime;
+        data->InterruptFlags = InterruptFlags;
+        data->AuraInterruptFlags = AuraInterruptFlags;
+        data->ChannelInterruptFlags = ChannelInterruptFlags;
+        data->procFlags = procFlags;
+        data->procChance = procChance;
+        data->procCharges = procCharges;
+        data->maxLevel = maxLevel;
+        data->baseLevel = baseLevel;
+        data->spellLevel = spellLevel;
+        data->DurationIndex = DurationIndex;
+        data->powerType = powerType;
+        data->manaCost = manaCost;
+        data->manaCostPerlevel = manaCostPerlevel;
+        data->manaPerSecond = manaPerSecond;
+        data->manaPerSecondPerLevel = manaPerSecondPerLevel;
+        data->rangeIndex = rangeIndex;
+        data->speed = speed;
+        data->modalNextSpell = modalNextSpell;
+        data->StackAmount = StackAmount;
+        std::copy(std::begin(Totem), std::end(Totem), std::begin(data->Totem));
+        std::copy(std::begin(Reagent), std::end(Reagent), std::begin(data->Reagent));
+        std::copy(std::begin(ReagentCount), std::end(ReagentCount), std::begin(data->ReagentCount));
+        data->EquippedItemClass = EquippedItemClass;
+        data->EquippedItemSubClassMask = EquippedItemSubClassMask;
+        data->EquippedItemInventoryTypeMask = 0;
+        std::copy(std::begin(Effect), std::end(Effect), std::begin(data->Effect));
+        std::copy(std::begin(EffectDieSides), std::end(EffectDieSides), std::begin(data->EffectDieSides));
+        std::copy(std::begin(EffectBaseDice), std::end(EffectBaseDice), std::begin(data->EffectBaseDice));
+        std::copy(std::begin(EffectDicePerLevel), std::end(EffectDicePerLevel), std::begin(data->EffectDicePerLevel));
+        std::copy(std::begin(EffectRealPointsPerLevel), std::end(EffectRealPointsPerLevel), std::begin(data->EffectRealPointsPerLevel));
+        std::copy(std::begin(EffectBasePoints), std::end(EffectBasePoints), std::begin(data->EffectBasePoints));
+        std::copy(std::begin(EffectMechanic), std::end(EffectMechanic), std::begin(data->EffectMechanic));
+        std::copy(std::begin(EffectImplicitTargetA), std::end(EffectImplicitTargetA), std::begin(data->EffectImplicitTargetA));
+        std::copy(std::begin(EffectImplicitTargetB), std::end(EffectImplicitTargetB), std::begin(data->EffectImplicitTargetB));
+        std::copy(std::begin(EffectRadiusIndex), std::end(EffectRadiusIndex), std::begin(data->EffectRadiusIndex));
+        std::copy(std::begin(EffectApplyAuraName), std::end(EffectApplyAuraName), std::begin(data->EffectApplyAuraName));
+        std::copy(std::begin(EffectAmplitude), std::end(EffectAmplitude), std::begin(data->EffectAmplitude));
+        std::copy(std::begin(EffectMultipleValue), std::end(EffectMultipleValue), std::begin(data->EffectMultipleValue));
+        std::copy(std::begin(EffectChainTarget), std::end(EffectChainTarget), std::begin(data->EffectChainTarget));
+        std::copy(std::begin(EffectItemType), std::end(EffectItemType), std::begin(data->EffectItemType));
+        std::copy(std::begin(EffectMiscValue), std::end(EffectMiscValue), std::begin(data->EffectMiscValue));
+        std::copy(std::begin(EffectTriggerSpell), std::end(EffectTriggerSpell), std::begin(data->EffectTriggerSpell));
+        std::copy(std::begin(EffectPointsPerComboPoint), std::end(EffectPointsPerComboPoint), std::begin(data->EffectPointsPerComboPoint));
+        data->SpellVisual = SpellVisual;
+        data->SpellVisual2 = SpellVisual2;
+        data->SpellIconID = SpellIconID;
+        data->activeIconID = activeIconID;
+        data->spellPriority = spellPriority;
+        std::copy(std::begin(SpellName), std::end(SpellName), std::begin(data->SpellName));
+        data->SpellNameFlag = SpellNameFlag;
+        std::copy(std::begin(Rank), std::end(Rank), std::begin(data->Rank));
+        data->RankFlags = RankFlags;
+        std::copy(std::begin(Description), std::end(Description), std::begin(data->Description));
+        data->DescriptionFlags = DescriptionFlags;
+        std::copy(std::begin(ToolTip), std::end(ToolTip), std::begin(data->ToolTip));
+        data->ToolTipFlags = ToolTipFlags;
+        data->ManaCostPercentage = ManaCostPercentage;
+        data->StartRecoveryCategory = StartRecoveryCategory;
+        data->StartRecoveryTime = StartRecoveryTime;
+        data->MaxTargetLevel = MaxTargetLevel;
+        data->SpellFamilyName = SpellFamilyName;
+        data->SpellFamilyFlags = ClassFamilyMask(SpellFamilyFlags);
+        data->MaxAffectedTargets = MaxAffectedTargets;
+        data->DmgClass = DmgClass;
+        data->PreventionType = PreventionType;
+        data->StanceBarOrder = StanceBarOrder;
+        std::copy(std::begin(DmgMultiplier), std::end(DmgMultiplier), std::begin(data->DmgMultiplier));
+        data->MinFactionId = 0;
+        data->MinReputation = 0;
+        data->RequiredAuraVision = 0;
+        return data;
+    }
 };
 
 struct SpellEntry4695
@@ -494,13 +898,13 @@ struct SpellEntry4695
     uint32    SpellIconID;                                  // 111
     uint32    activeIconID;                                 // 112
     uint32    spellPriority;                                // 113
-    char*     SpellName[8];                                 // 114-121
+    char*     SpellName[MAX_DBC_LOCALE];                    // 114-121
     uint32    SpellNameFlag;                                // 122
-    char*     Rank[8];                                      // 123-130
+    char*     Rank[MAX_DBC_LOCALE];                         // 123-130
     uint32    RankFlags;                                    // 131
-    char*     Description[8];                               // 132-139
+    char*     Description[MAX_DBC_LOCALE];                  // 132-139
     uint32    DescriptionFlags;                             // 140
-    char*     ToolTip[8];                                   // 141-148
+    char*     ToolTip[MAX_DBC_LOCALE];                      // 141-148
     uint32    ToolTipFlags;                                 // 149
     uint32    ManaCostPercentage;                           // 150
     uint32    StartRecoveryCategory;                        // 151
@@ -514,6 +918,103 @@ struct SpellEntry4695
     int32     StanceBarOrder;                               // 159
     float     DmgMultiplier[MAX_EFFECT_INDEX];              // 160-162
     uint32    AttributesEx3;                                // 163
+
+    SpellEntry5875* ToLatestStructure() const
+    {
+        SpellEntry5875* data = new SpellEntry5875();
+        data->Id = Id;
+        data->School = School;
+        data->Category = Category;
+        data->castUI = castUI;
+        data->Dispel = Dispel;
+        data->Mechanic = Mechanic;
+        data->Attributes = Attributes;
+        data->AttributesEx = AttributesEx;
+        data->AttributesEx2 = AttributesEx2;
+        data->AttributesEx3 = AttributesEx3;
+        data->AttributesEx4 = 0;
+        data->Stances = Stances;
+        data->StancesNot = StancesNot;
+        data->Targets = Targets;
+        data->TargetCreatureType = TargetCreatureType;
+        data->RequiresSpellFocus = RequiresSpellFocus;
+        data->CasterAuraState = CasterAuraState;
+        data->TargetAuraState = TargetAuraState;
+        data->CastingTimeIndex = CastingTimeIndex;
+        data->RecoveryTime = RecoveryTime;
+        data->CategoryRecoveryTime = CategoryRecoveryTime;
+        data->InterruptFlags = InterruptFlags;
+        data->AuraInterruptFlags = AuraInterruptFlags;
+        data->ChannelInterruptFlags = ChannelInterruptFlags;
+        data->procFlags = procFlags;
+        data->procChance = procChance;
+        data->procCharges = procCharges;
+        data->maxLevel = maxLevel;
+        data->baseLevel = baseLevel;
+        data->spellLevel = spellLevel;
+        data->DurationIndex = DurationIndex;
+        data->powerType = powerType;
+        data->manaCost = manaCost;
+        data->manaCostPerlevel = manaCostPerlevel;
+        data->manaPerSecond = manaPerSecond;
+        data->manaPerSecondPerLevel = manaPerSecondPerLevel;
+        data->rangeIndex = rangeIndex;
+        data->speed = speed;
+        data->modalNextSpell = modalNextSpell;
+        data->StackAmount = StackAmount;
+        std::copy(std::begin(Totem), std::end(Totem), std::begin(data->Totem));
+        std::copy(std::begin(Reagent), std::end(Reagent), std::begin(data->Reagent));
+        std::copy(std::begin(ReagentCount), std::end(ReagentCount), std::begin(data->ReagentCount));
+        data->EquippedItemClass = EquippedItemClass;
+        data->EquippedItemSubClassMask = EquippedItemSubClassMask;
+        data->EquippedItemInventoryTypeMask = 0;
+        std::copy(std::begin(Effect), std::end(Effect), std::begin(data->Effect));
+        std::copy(std::begin(EffectDieSides), std::end(EffectDieSides), std::begin(data->EffectDieSides));
+        std::copy(std::begin(EffectBaseDice), std::end(EffectBaseDice), std::begin(data->EffectBaseDice));
+        std::copy(std::begin(EffectDicePerLevel), std::end(EffectDicePerLevel), std::begin(data->EffectDicePerLevel));
+        std::copy(std::begin(EffectRealPointsPerLevel), std::end(EffectRealPointsPerLevel), std::begin(data->EffectRealPointsPerLevel));
+        std::copy(std::begin(EffectBasePoints), std::end(EffectBasePoints), std::begin(data->EffectBasePoints));
+        std::fill(std::begin(data->EffectMechanic), std::end(data->EffectMechanic), 0);
+        std::copy(std::begin(EffectImplicitTargetA), std::end(EffectImplicitTargetA), std::begin(data->EffectImplicitTargetA));
+        std::copy(std::begin(EffectImplicitTargetB), std::end(EffectImplicitTargetB), std::begin(data->EffectImplicitTargetB));
+        std::copy(std::begin(EffectRadiusIndex), std::end(EffectRadiusIndex), std::begin(data->EffectRadiusIndex));
+        std::copy(std::begin(EffectApplyAuraName), std::end(EffectApplyAuraName), std::begin(data->EffectApplyAuraName));
+        std::copy(std::begin(EffectAmplitude), std::end(EffectAmplitude), std::begin(data->EffectAmplitude));
+        std::copy(std::begin(EffectMultipleValue), std::end(EffectMultipleValue), std::begin(data->EffectMultipleValue));
+        std::copy(std::begin(EffectChainTarget), std::end(EffectChainTarget), std::begin(data->EffectChainTarget));
+        std::copy(std::begin(EffectItemType), std::end(EffectItemType), std::begin(data->EffectItemType));
+        std::copy(std::begin(EffectMiscValue), std::end(EffectMiscValue), std::begin(data->EffectMiscValue));
+        std::copy(std::begin(EffectTriggerSpell), std::end(EffectTriggerSpell), std::begin(data->EffectTriggerSpell));
+        std::copy(std::begin(EffectPointsPerComboPoint), std::end(EffectPointsPerComboPoint), std::begin(data->EffectPointsPerComboPoint));
+        data->SpellVisual = SpellVisual;
+        data->SpellVisual2 = SpellVisual2;
+        data->SpellIconID = SpellIconID;
+        data->activeIconID = activeIconID;
+        data->spellPriority = spellPriority;
+        std::copy(std::begin(SpellName), std::end(SpellName), std::begin(data->SpellName));
+        data->SpellNameFlag = SpellNameFlag;
+        std::copy(std::begin(Rank), std::end(Rank), std::begin(data->Rank));
+        data->RankFlags = RankFlags;
+        std::copy(std::begin(Description), std::end(Description), std::begin(data->Description));
+        data->DescriptionFlags = DescriptionFlags;
+        std::copy(std::begin(ToolTip), std::end(ToolTip), std::begin(data->ToolTip));
+        data->ToolTipFlags = ToolTipFlags;
+        data->ManaCostPercentage = ManaCostPercentage;
+        data->StartRecoveryCategory = StartRecoveryCategory;
+        data->StartRecoveryTime = StartRecoveryTime;
+        data->MaxTargetLevel = MaxTargetLevel;
+        data->SpellFamilyName = SpellFamilyName;
+        data->SpellFamilyFlags = ClassFamilyMask(SpellFamilyFlags);
+        data->MaxAffectedTargets = MaxAffectedTargets;
+        data->DmgClass = DmgClass;
+        data->PreventionType = PreventionType;
+        data->StanceBarOrder = StanceBarOrder;
+        std::copy(std::begin(DmgMultiplier), std::end(DmgMultiplier), std::begin(data->DmgMultiplier));
+        data->MinFactionId = 0;
+        data->MinReputation = 0;
+        data->RequiredAuraVision = 0;
+        return data;
+    }
 };
 
 struct SpellEntry4449
@@ -582,13 +1083,13 @@ struct SpellEntry4449
     uint32    SpellIconID;                                  // 110
     uint32    activeIconID;                                 // 111
     uint32    spellPriority;                                // 112
-    char*     SpellName[8];                                 // 113-120
+    char*     SpellName[MAX_DBC_LOCALE];                    // 113-120
     uint32    SpellNameFlag;                                // 121
-    char*     Rank[8];                                      // 122-129
+    char*     Rank[MAX_DBC_LOCALE];                         // 122-129
     uint32    RankFlags;                                    // 130
-    char*     Description[8];                               // 131-138
+    char*     Description[MAX_DBC_LOCALE];                  // 131-138
     uint32    DescriptionFlags;                             // 139
-    char*     ToolTip[8];                                   // 140-147
+    char*     ToolTip[MAX_DBC_LOCALE];                      // 140-147
     uint32    ToolTipFlags;                                 // 148
     uint32    ManaCostPercentage;                           // 149
     uint32    StartRecoveryCategory;                        // 150
@@ -602,6 +1103,103 @@ struct SpellEntry4449
     int32     StanceBarOrder;                               // 158
     float     DmgMultiplier[MAX_EFFECT_INDEX];              // 159-161
     uint32    AttributesEx3;                                // 162
+
+    SpellEntry5875* ToLatestStructure() const
+    {
+        SpellEntry5875* data = new SpellEntry5875();
+        data->Id = Id;
+        data->School = School;
+        data->Category = Category;
+        data->castUI = castUI;
+        data->Dispel = Dispel;
+        data->Mechanic = Mechanic;
+        data->Attributes = Attributes;
+        data->AttributesEx = AttributesEx;
+        data->AttributesEx2 = AttributesEx2;
+        data->AttributesEx3 = AttributesEx3;
+        data->AttributesEx4 = 0;
+        data->Stances = Stances;
+        data->StancesNot = 0;
+        data->Targets = Targets;
+        data->TargetCreatureType = TargetCreatureType;
+        data->RequiresSpellFocus = RequiresSpellFocus;
+        data->CasterAuraState = CasterAuraState;
+        data->TargetAuraState = TargetAuraState;
+        data->CastingTimeIndex = CastingTimeIndex;
+        data->RecoveryTime = RecoveryTime;
+        data->CategoryRecoveryTime = CategoryRecoveryTime;
+        data->InterruptFlags = InterruptFlags;
+        data->AuraInterruptFlags = AuraInterruptFlags;
+        data->ChannelInterruptFlags = ChannelInterruptFlags;
+        data->procFlags = procFlags;
+        data->procChance = procChance;
+        data->procCharges = procCharges;
+        data->maxLevel = maxLevel;
+        data->baseLevel = baseLevel;
+        data->spellLevel = spellLevel;
+        data->DurationIndex = DurationIndex;
+        data->powerType = powerType;
+        data->manaCost = manaCost;
+        data->manaCostPerlevel = manaCostPerlevel;
+        data->manaPerSecond = manaPerSecond;
+        data->manaPerSecondPerLevel = manaPerSecondPerLevel;
+        data->rangeIndex = rangeIndex;
+        data->speed = speed;
+        data->modalNextSpell = modalNextSpell;
+        data->StackAmount = StackAmount;
+        std::copy(std::begin(Totem), std::end(Totem), std::begin(data->Totem));
+        std::copy(std::begin(Reagent), std::end(Reagent), std::begin(data->Reagent));
+        std::copy(std::begin(ReagentCount), std::end(ReagentCount), std::begin(data->ReagentCount));
+        data->EquippedItemClass = EquippedItemClass;
+        data->EquippedItemSubClassMask = EquippedItemSubClassMask;
+        data->EquippedItemInventoryTypeMask = 0;
+        std::copy(std::begin(Effect), std::end(Effect), std::begin(data->Effect));
+        std::copy(std::begin(EffectDieSides), std::end(EffectDieSides), std::begin(data->EffectDieSides));
+        std::copy(std::begin(EffectBaseDice), std::end(EffectBaseDice), std::begin(data->EffectBaseDice));
+        std::copy(std::begin(EffectDicePerLevel), std::end(EffectDicePerLevel), std::begin(data->EffectDicePerLevel));
+        std::copy(std::begin(EffectRealPointsPerLevel), std::end(EffectRealPointsPerLevel), std::begin(data->EffectRealPointsPerLevel));
+        std::copy(std::begin(EffectBasePoints), std::end(EffectBasePoints), std::begin(data->EffectBasePoints));
+        std::fill(std::begin(data->EffectMechanic), std::end(data->EffectMechanic), 0);
+        std::copy(std::begin(EffectImplicitTargetA), std::end(EffectImplicitTargetA), std::begin(data->EffectImplicitTargetA));
+        std::copy(std::begin(EffectImplicitTargetB), std::end(EffectImplicitTargetB), std::begin(data->EffectImplicitTargetB));
+        std::copy(std::begin(EffectRadiusIndex), std::end(EffectRadiusIndex), std::begin(data->EffectRadiusIndex));
+        std::copy(std::begin(EffectApplyAuraName), std::end(EffectApplyAuraName), std::begin(data->EffectApplyAuraName));
+        std::copy(std::begin(EffectAmplitude), std::end(EffectAmplitude), std::begin(data->EffectAmplitude));
+        std::copy(std::begin(EffectMultipleValue), std::end(EffectMultipleValue), std::begin(data->EffectMultipleValue));
+        std::copy(std::begin(EffectChainTarget), std::end(EffectChainTarget), std::begin(data->EffectChainTarget));
+        std::copy(std::begin(EffectItemType), std::end(EffectItemType), std::begin(data->EffectItemType));
+        std::copy(std::begin(EffectMiscValue), std::end(EffectMiscValue), std::begin(data->EffectMiscValue));
+        std::copy(std::begin(EffectTriggerSpell), std::end(EffectTriggerSpell), std::begin(data->EffectTriggerSpell));
+        std::copy(std::begin(EffectPointsPerComboPoint), std::end(EffectPointsPerComboPoint), std::begin(data->EffectPointsPerComboPoint));
+        data->SpellVisual = SpellVisual;
+        data->SpellVisual2 = SpellVisual2;
+        data->SpellIconID = SpellIconID;
+        data->activeIconID = activeIconID;
+        data->spellPriority = spellPriority;
+        std::copy(std::begin(SpellName), std::end(SpellName), std::begin(data->SpellName));
+        data->SpellNameFlag = SpellNameFlag;
+        std::copy(std::begin(Rank), std::end(Rank), std::begin(data->Rank));
+        data->RankFlags = RankFlags;
+        std::copy(std::begin(Description), std::end(Description), std::begin(data->Description));
+        data->DescriptionFlags = DescriptionFlags;
+        std::copy(std::begin(ToolTip), std::end(ToolTip), std::begin(data->ToolTip));
+        data->ToolTipFlags = ToolTipFlags;
+        data->ManaCostPercentage = ManaCostPercentage;
+        data->StartRecoveryCategory = StartRecoveryCategory;
+        data->StartRecoveryTime = StartRecoveryTime;
+        data->MaxTargetLevel = MaxTargetLevel;
+        data->SpellFamilyName = SpellFamilyName;
+        data->SpellFamilyFlags = ClassFamilyMask(SpellFamilyFlags);
+        data->MaxAffectedTargets = MaxAffectedTargets;
+        data->DmgClass = DmgClass;
+        data->PreventionType = PreventionType;
+        data->StanceBarOrder = StanceBarOrder;
+        std::copy(std::begin(DmgMultiplier), std::end(DmgMultiplier), std::begin(data->DmgMultiplier));
+        data->MinFactionId = 0;
+        data->MinReputation = 0;
+        data->RequiredAuraVision = 0;
+        return data;
+    }
 };
 
 struct SpellEntry4297
@@ -669,13 +1267,13 @@ struct SpellEntry4297
     uint32    SpellIconID;                                  // 109
     uint32    activeIconID;                                 // 110
     uint32    spellPriority;                                // 111
-    char*     SpellName[8];                                 // 112-119
+    char*     SpellName[MAX_DBC_LOCALE];                    // 112-119
     uint32    SpellNameFlag;                                // 120
-    char*     Rank[8];                                      // 121-128
+    char*     Rank[MAX_DBC_LOCALE];                         // 121-128
     uint32    RankFlags;                                    // 129
-    char*     Description[8];                               // 130-137
+    char*     Description[MAX_DBC_LOCALE];                  // 130-137
     uint32    DescriptionFlags;                             // 138
-    char*     ToolTip[8];                                   // 139-146
+    char*     ToolTip[MAX_DBC_LOCALE];                      // 139-146
     uint32    ToolTipFlags;                                 // 147
     uint32    ManaCostPercentage;                           // 148
     uint32    StartRecoveryCategory;                        // 149
@@ -689,6 +1287,103 @@ struct SpellEntry4297
     int32     StanceBarOrder;                               // 157
     float     DmgMultiplier[MAX_EFFECT_INDEX];              // 158-160
     uint32    AttributesEx3;                                // 161
+
+    SpellEntry5875* ToLatestStructure() const
+    {
+        SpellEntry5875* data = new SpellEntry5875();
+        data->Id = Id;
+        data->School = School;
+        data->Category = Category;
+        data->castUI = castUI;
+        data->Dispel = Dispel;
+        data->Mechanic = 0;
+        data->Attributes = Attributes;
+        data->AttributesEx = AttributesEx;
+        data->AttributesEx2 = AttributesEx2;
+        data->AttributesEx3 = AttributesEx3;
+        data->AttributesEx4 = 0;
+        data->Stances = Stances;
+        data->StancesNot = 0;
+        data->Targets = Targets;
+        data->TargetCreatureType = TargetCreatureType;
+        data->RequiresSpellFocus = RequiresSpellFocus;
+        data->CasterAuraState = CasterAuraState;
+        data->TargetAuraState = TargetAuraState;
+        data->CastingTimeIndex = CastingTimeIndex;
+        data->RecoveryTime = RecoveryTime;
+        data->CategoryRecoveryTime = CategoryRecoveryTime;
+        data->InterruptFlags = InterruptFlags;
+        data->AuraInterruptFlags = AuraInterruptFlags;
+        data->ChannelInterruptFlags = ChannelInterruptFlags;
+        data->procFlags = procFlags;
+        data->procChance = procChance;
+        data->procCharges = procCharges;
+        data->maxLevel = maxLevel;
+        data->baseLevel = baseLevel;
+        data->spellLevel = spellLevel;
+        data->DurationIndex = DurationIndex;
+        data->powerType = powerType;
+        data->manaCost = manaCost;
+        data->manaCostPerlevel = manaCostPerlevel;
+        data->manaPerSecond = manaPerSecond;
+        data->manaPerSecondPerLevel = manaPerSecondPerLevel;
+        data->rangeIndex = rangeIndex;
+        data->speed = speed;
+        data->modalNextSpell = modalNextSpell;
+        data->StackAmount = StackAmount;
+        std::copy(std::begin(Totem), std::end(Totem), std::begin(data->Totem));
+        std::copy(std::begin(Reagent), std::end(Reagent), std::begin(data->Reagent));
+        std::copy(std::begin(ReagentCount), std::end(ReagentCount), std::begin(data->ReagentCount));
+        data->EquippedItemClass = EquippedItemClass;
+        data->EquippedItemSubClassMask = EquippedItemSubClassMask;
+        data->EquippedItemInventoryTypeMask = 0;
+        std::copy(std::begin(Effect), std::end(Effect), std::begin(data->Effect));
+        std::copy(std::begin(EffectDieSides), std::end(EffectDieSides), std::begin(data->EffectDieSides));
+        std::copy(std::begin(EffectBaseDice), std::end(EffectBaseDice), std::begin(data->EffectBaseDice));
+        std::copy(std::begin(EffectDicePerLevel), std::end(EffectDicePerLevel), std::begin(data->EffectDicePerLevel));
+        std::copy(std::begin(EffectRealPointsPerLevel), std::end(EffectRealPointsPerLevel), std::begin(data->EffectRealPointsPerLevel));
+        std::copy(std::begin(EffectBasePoints), std::end(EffectBasePoints), std::begin(data->EffectBasePoints));
+        std::fill(std::begin(data->EffectMechanic), std::end(data->EffectMechanic), 0);
+        std::copy(std::begin(EffectImplicitTargetA), std::end(EffectImplicitTargetA), std::begin(data->EffectImplicitTargetA));
+        std::copy(std::begin(EffectImplicitTargetB), std::end(EffectImplicitTargetB), std::begin(data->EffectImplicitTargetB));
+        std::copy(std::begin(EffectRadiusIndex), std::end(EffectRadiusIndex), std::begin(data->EffectRadiusIndex));
+        std::copy(std::begin(EffectApplyAuraName), std::end(EffectApplyAuraName), std::begin(data->EffectApplyAuraName));
+        std::copy(std::begin(EffectAmplitude), std::end(EffectAmplitude), std::begin(data->EffectAmplitude));
+        std::copy(std::begin(EffectMultipleValue), std::end(EffectMultipleValue), std::begin(data->EffectMultipleValue));
+        std::copy(std::begin(EffectChainTarget), std::end(EffectChainTarget), std::begin(data->EffectChainTarget));
+        std::copy(std::begin(EffectItemType), std::end(EffectItemType), std::begin(data->EffectItemType));
+        std::copy(std::begin(EffectMiscValue), std::end(EffectMiscValue), std::begin(data->EffectMiscValue));
+        std::copy(std::begin(EffectTriggerSpell), std::end(EffectTriggerSpell), std::begin(data->EffectTriggerSpell));
+        std::copy(std::begin(EffectPointsPerComboPoint), std::end(EffectPointsPerComboPoint), std::begin(data->EffectPointsPerComboPoint));
+        data->SpellVisual = SpellVisual;
+        data->SpellVisual2 = SpellVisual2;
+        data->SpellIconID = SpellIconID;
+        data->activeIconID = activeIconID;
+        data->spellPriority = spellPriority;
+        std::copy(std::begin(SpellName), std::end(SpellName), std::begin(data->SpellName));
+        data->SpellNameFlag = SpellNameFlag;
+        std::copy(std::begin(Rank), std::end(Rank), std::begin(data->Rank));
+        data->RankFlags = RankFlags;
+        std::copy(std::begin(Description), std::end(Description), std::begin(data->Description));
+        data->DescriptionFlags = DescriptionFlags;
+        std::copy(std::begin(ToolTip), std::end(ToolTip), std::begin(data->ToolTip));
+        data->ToolTipFlags = ToolTipFlags;
+        data->ManaCostPercentage = ManaCostPercentage;
+        data->StartRecoveryCategory = StartRecoveryCategory;
+        data->StartRecoveryTime = StartRecoveryTime;
+        data->MaxTargetLevel = MaxTargetLevel;
+        data->SpellFamilyName = SpellFamilyName;
+        data->SpellFamilyFlags = ClassFamilyMask(SpellFamilyFlags);
+        data->MaxAffectedTargets = MaxAffectedTargets;
+        data->DmgClass = DmgClass;
+        data->PreventionType = PreventionType;
+        data->StanceBarOrder = StanceBarOrder;
+        std::copy(std::begin(DmgMultiplier), std::end(DmgMultiplier), std::begin(data->DmgMultiplier));
+        data->MinFactionId = 0;
+        data->MinReputation = 0;
+        data->RequiredAuraVision = 0;
+        return data;
+    }
 };
 
 struct FactionEntry5875
@@ -700,9 +1395,24 @@ struct FactionEntry5875
     int32       BaseRepValue[4];                            // 10-13    m_reputationBase
     uint32      ReputationFlags[4];                         // 14-17    m_reputationFlags
     uint32      team;                                       // 18       m_parentFactionID
-    char*       name[8];                                    // 19-26    m_name_lang
+    char*       name[MAX_DBC_LOCALE];                       // 19-26    m_name_lang
                                                             // 27 string flags
-    char* description[8];                                   // 28-35    m_description_lang
+    char* description[MAX_DBC_LOCALE];                      // 28-35    m_description_lang
+
+    FactionEntry5875* ToLatestStructure() const
+    {
+        FactionEntry5875* data = new FactionEntry5875();
+        data->Id = Id;
+        data->reputationListID = reputationListID;
+        std::copy(std::begin(BaseRepRaceMask), std::end(BaseRepRaceMask), std::begin(data->BaseRepRaceMask));
+        std::copy(std::begin(BaseRepClassMask), std::end(BaseRepClassMask), std::begin(data->BaseRepClassMask));
+        std::copy(std::begin(BaseRepValue), std::end(BaseRepValue), std::begin(data->BaseRepValue));
+        std::copy(std::begin(ReputationFlags), std::end(ReputationFlags), std::begin(data->ReputationFlags));
+        data->team = team;
+        std::copy(std::begin(name), std::end(name), std::begin(data->name));
+        std::copy(std::begin(description), std::end(description), std::begin(data->description));
+        return data;
+    }
 };
 
 struct FactionEntry4297
@@ -714,8 +1424,23 @@ struct FactionEntry4297
     int32       BaseRepValue[4];                            // 10-13    m_reputationBase
     uint32      ReputationFlags[4];                         // 14-17    m_reputationFlags
     uint32      team;                                       // 18       m_parentFactionID
-    char*       name[8];                                    // 19-26    m_name_lang
+    char*       name[MAX_DBC_LOCALE];                       // 19-26    m_name_lang
                                                             // 27 string flags
+
+    FactionEntry5875* ToLatestStructure() const
+    {
+        FactionEntry5875* data = new FactionEntry5875();
+        data->Id = Id;
+        data->reputationListID = reputationListID;
+        std::copy(std::begin(BaseRepRaceMask), std::end(BaseRepRaceMask), std::begin(data->BaseRepRaceMask));
+        std::copy(std::begin(BaseRepClassMask), std::end(BaseRepClassMask), std::begin(data->BaseRepClassMask));
+        std::copy(std::begin(BaseRepValue), std::end(BaseRepValue), std::begin(data->BaseRepValue));
+        std::copy(std::begin(ReputationFlags), std::end(ReputationFlags), std::begin(data->ReputationFlags));
+        data->team = team;
+        std::copy(std::begin(name), std::end(name), std::begin(data->name));
+        std::fill(std::begin(data->description), std::end(data->description), (char*)"");
+        return data;
+    }
 };
 
 struct FactionTemplateEntry5875
@@ -728,6 +1453,20 @@ struct FactionTemplateEntry5875
     uint32      hostileMask;                                // 5 if mask set (see FactionMasks) then faction hostile to masked team
     uint32      enemyFaction[4];                            // 6-9
     uint32      friendFaction[4];                           // 10-13
+
+    FactionTemplateEntry5875* ToLatestStructure() const
+    {
+        FactionTemplateEntry5875* data = new FactionTemplateEntry5875();
+        data->ID = ID;
+        data->faction = faction;
+        data->factionFlags = factionFlags;
+        data->ourMask = ourMask;
+        data->friendlyMask = friendlyMask;
+        data->hostileMask = hostileMask;
+        std::copy(std::begin(enemyFaction), std::end(enemyFaction), std::begin(data->enemyFaction));
+        std::copy(std::begin(friendFaction), std::end(friendFaction), std::begin(data->friendFaction));
+        return data;
+    }
 };
 
 struct TaxiNodesEntry5875
@@ -737,9 +1476,22 @@ struct TaxiNodesEntry5875
     float     x;                                            // 2        m_x
     float     y;                                            // 3        m_y
     float     z;                                            // 4        m_z
-    char*     name[8];                                      // 5-12     m_Name_lang
+    char*     name[MAX_DBC_LOCALE];                         // 5-12     m_Name_lang
                                                             // 13 string flags
     uint32    MountCreatureID[2];                           // 14-15    m_MountCreatureID[2] horde[14]-alliance[15]
+
+    TaxiNodesEntry5875* ToLatestStructure() const
+    {
+        TaxiNodesEntry5875* data = new TaxiNodesEntry5875();
+        data->ID = ID;
+        data->map_id = map_id;
+        data->x = x;
+        data->y = y;
+        data->z = z;
+        std::copy(std::begin(name), std::end(name), std::begin(data->name));
+        std::copy(std::begin(MountCreatureID), std::end(MountCreatureID), std::begin(data->MountCreatureID));
+        return data;
+    }
 };
 
 struct TaxiNodesEntry5302
@@ -749,8 +1501,21 @@ struct TaxiNodesEntry5302
     float     x;                                            // 2        m_x
     float     y;                                            // 3        m_y
     float     z;                                            // 4        m_z
-    char*     name[8];                                      // 5-12     m_Name_lang
+    char*     name[MAX_DBC_LOCALE];                         // 5-12     m_Name_lang
                                                             // 13 string flags
+
+    TaxiNodesEntry5875* ToLatestStructure() const
+    {
+        TaxiNodesEntry5875* data = new TaxiNodesEntry5875();
+        data->ID = ID;
+        data->map_id = map_id;
+        data->x = x;
+        data->y = y;
+        data->z = z;
+        std::copy(std::begin(name), std::end(name), std::begin(data->name));
+        std::fill(std::begin(data->MountCreatureID), std::end(data->MountCreatureID), 0);
+        return data;
+    }
 };
 
 struct SkillLineAbilityEntry5875
@@ -769,6 +1534,23 @@ struct SkillLineAbilityEntry5875
     uint32    min_value;                                    // 11
                                                             // 12-13, unknown, always 0
     uint32    reqtrainpoints;                               // 14
+
+    SkillLineAbilityEntry5875* ToLatestStructure() const
+    {
+        SkillLineAbilityEntry5875* data = new SkillLineAbilityEntry5875();
+        data->id = id;
+        data->skillId = skillId;
+        data->spellId = spellId;
+        data->racemask = racemask;
+        data->classmask = classmask;
+        data->req_skill_value = req_skill_value;
+        data->forward_spellid = forward_spellid;
+        data->learnOnGetSkill = learnOnGetSkill;
+        data->max_value = max_value;
+        data->min_value = min_value;
+        data->reqtrainpoints = reqtrainpoints;
+        return data;
+    }
 };
 
 struct CreatureSpellDataEntry5875
@@ -776,13 +1558,29 @@ struct CreatureSpellDataEntry5875
     uint32    ID;                                           // 0        m_ID
     uint32    spellId[4];                                   // 1-4      m_spells[4]
   //uint32    availability[4];                              // 4-7      m_availability[4]
+
+    CreatureSpellDataEntry5875* ToLatestStructure() const
+    {
+        CreatureSpellDataEntry5875* data = new CreatureSpellDataEntry5875();
+        data->ID = ID;
+        std::copy(std::begin(spellId), std::end(spellId), std::begin(data->spellId));
+        return data;
+    }
 };
 
 struct MailTemplateEntry5875
 {
     uint32      ID;                                         // 0        m_ID
-    char*       subject[8];                                 // 1-8      m_subject_lang
+    char*       subject[MAX_DBC_LOCALE];                    // 1-8      m_subject_lang
                                                             // 9        string flags
+
+    MailTemplateEntry5875* ToLatestStructure() const
+    {
+        MailTemplateEntry5875* data = new MailTemplateEntry5875();
+        data->ID = ID;
+        std::copy(std::begin(subject), std::end(subject), std::begin(data->subject));
+        return data;
+    }
 };
 
 #if defined( __GNUC__ )

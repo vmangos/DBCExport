@@ -18,5 +18,6 @@ typedef std::uint8_t uint8;
 #define MAX_SPELL_TOTEM_CATEGORIES 2
 #define MAX_SPELL_REAGENTS 8
 #define MAX_SPELL_TOTEMS 2
+#define MAX_DBC_LOCALE 8
 
 typedef std::list<std::string> StoreProblemList;
