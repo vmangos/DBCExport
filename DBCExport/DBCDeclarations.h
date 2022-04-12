@@ -9,6 +9,7 @@ extern DBCStorage <SpellEntry4695>                   sSpellStore4695;
 extern DBCStorage <SpellEntry4449>                   sSpellStore4449;
 extern DBCStorage <SpellEntry4297>                   sSpellStore4297;
 extern DBCStorage <SkillLineEntry5875>               sSkillLineStore5875;
+extern DBCStorage <SkillRaceClassInfoEntry5875>      sSkillRaceClassInfoStore5875;
 extern DBCStorage <SkillLineAbilityEntry5875>        sSkillLineAbilityStore5875;
 extern DBCStorage <FactionEntry5875>                 sFactionStore5875;
 extern DBCStorage <FactionEntry4297>                 sFactionStore4297;

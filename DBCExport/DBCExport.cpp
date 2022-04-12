@@ -1,268 +1,59 @@
+#include <vector>
+#include <set>
 #include <iostream>
 #include <fstream>
 #include "SharedDefines.h"
 #include "DBCDeclarations.h"
 #include "Database\Database.h"
 
-void ExportTaxiNodes(unsigned int build, std::vector<TaxiNodesEntry5875*> const& taxiNodesStore)
+void ExportSkillLineHotfixes(std::set<uint32> entries, std::vector<SkillLineEntry5875*> const& store)
 {
-    std::ofstream myfile("taxi_nodes.sql");
+    std::ofstream myfile("HotFix_SkillLine.csv");
     if (!myfile.is_open())
         return;
 
-    printf("Extracting taxi nodes...\n");
+    printf("Writing SkillLine hotfixes...\n");
     uint32 count = 0;
-    
-    myfile << "INSERT INTO `taxi_nodes` VALUES\n";
-    for (uint32 i = 0; i < taxiNodesStore.size(); ++i)
+
+    myfile << "DisplayName,AlternateVerb,Description,HordeDisplayName,NeutralDisplayName,Id,CategoryId,SpellIconFileId,CanLink,ParentSkillLineId,ParentTierIndex,Flags,SpellBookSpellId\n";
+    for (auto const& id : entries)
     {
-        TaxiNodesEntry5875 const* node = taxiNodesStore[i];
-        if (!node)
+        if (!store[id])
             continue;
 
         count++;
         if (count > 1)
-            myfile << ",\n";
+            myfile << "\n";
 
-        myfile << "(" << node->ID << ", " << build << ", " << node->map_id << ", " << node->x << ", " << node->y << ", " << node->z << ", '" << EscapeString(node->name[0]) << "', '" << EscapeString(node->name[1]) << "', '" << EscapeString(node->name[2]) << "', '" << EscapeString(node->name[3]) << "', '" << EscapeString(node->name[4]) << "', '" << EscapeString(node->name[5]) << "', '" << EscapeString(node->name[6]) << "', '" << EscapeString(node->name[7]) << "', " << node->MountCreatureID[0] << ", " << node->MountCreatureID[1] << ")";
+        store[id]->WriteToHotfixCsvFile(myfile);
     }
 
-    myfile << ";";
     myfile.close();
-    printf("Extracted %u TaxiNodes.dbc rows.\n", count);
+    printf("Wrote %u SkillLine hotfix rows.\n", count);
 }
 
-void ExportSpells(unsigned int build, std::vector<SpellEntry5875*> const& spellStore)
+void ExportSkillRaceClassInfoHotfixes(std::set<uint32> entries, std::vector<SkillRaceClassInfoEntry5875*> const& store)
 {
-    std::ofstream myfile("spell_template.sql");
+    std::ofstream myfile("HotFix_SkillRaceClassInfo.csv");
     if (!myfile.is_open())
         return;
 
-    printf("Extracting spells...\n");
+    printf("Writing SkillRaceClassInfo hotfixes...\n");
     uint32 count = 0;
 
-    myfile << "INSERT INTO `spell_template` VALUES\n";
-    for (uint32 i = 0; i < spellStore.size(); ++i)
+    myfile << "Id,RaceMask,SkillId,ClassMask,Flags,Availability,MinLevel,SkillTierId\n";
+    for (auto const& id : entries)
     {
-        SpellEntry5875 const* spellEntry = spellStore[i];
-        if (!spellEntry)
+        if (!store[id])
             continue;
 
         count++;
         if (count > 1)
-            myfile << ",\n";
+            myfile << "\n";
 
-        spellEntry->WriteToSqlFile(myfile, build);
+        store[id]->WriteToHotfixCsvFile(myfile);
     }
 
-    myfile << ";";
     myfile.close();
-    printf("Extracted %u Spell.dbc rows.\n", count);
-}
-
-void ExportFactions(unsigned int build, std::vector<FactionEntry5875*> const& factionStore)
-{
-    printf("Extracting factions...\n");
-
-    uint32 count = 0;
-    std::ofstream myfile("faction.sql");
-    if (myfile.is_open())
-    {
-        myfile << "INSERT INTO `faction` VALUES \n";
-        for (uint32 i = 0; i < factionStore.size(); ++i)
-        {
-            if (FactionEntry5875 const* factionEntry = factionStore[i])
-            {
-                count++;
-                if (count > 1)
-                    myfile << ",\n";
-
-                factionEntry->WriteToSqlFile(myfile, build);
-            }
-        }
-        myfile << ";";
-        myfile.close();
-    }
-    printf("Extracted %u Faction.dbc rows.\n", count);
-}
-
-void ExportFactionTemplates(unsigned int build, std::vector<FactionTemplateEntry5875*> const& factionTemplateStore)
-{
-    printf("Extracting factions templates...\n");
-
-    uint32 count = 0;
-    std::ofstream myfile("faction_template.sql");
-    if (myfile.is_open())
-    {
-        myfile << "INSERT INTO `faction_template` VALUES \n";
-        for (uint32 i = 0; i < factionTemplateStore.size(); ++i)
-        {
-            if (FactionTemplateEntry5875 const* factionEntry = factionTemplateStore[i])
-            {
-                count++;
-                if (count > 1)
-                    myfile << ",\n";
-
-                myfile << "(";
-                myfile << factionEntry->ID << ", "; // 1
-                myfile << build << ", ";
-                myfile << factionEntry->faction << ", ";// 2
-                myfile << factionEntry->factionFlags << ", "; // 3
-                myfile << factionEntry->ourMask << ", "; // 4
-                myfile << factionEntry->friendlyMask << ", "; // 5
-                myfile << factionEntry->hostileMask << ", "; // 6
-                myfile << factionEntry->enemyFaction[0] << ", "; // 7
-                myfile << factionEntry->enemyFaction[1] << ", "; // 8
-                myfile << factionEntry->enemyFaction[2] << ", "; // 9
-                myfile << factionEntry->enemyFaction[3] << ", "; // 10
-                myfile << factionEntry->friendFaction[0] << ", "; // 11
-                myfile << factionEntry->friendFaction[1] << ", "; // 12
-                myfile << factionEntry->friendFaction[2] << ", "; // 13
-                myfile << factionEntry->friendFaction[3] << ")"; // 14
-            }
-        }
-        myfile << ";";
-        myfile.close();
-    }
-    printf("Extracted %u FactionTemplate.dbc rows.\n", count);
-}
-
-void ExportSkillLineAbilities(unsigned int build, std::vector<SkillLineAbilityEntry5875*> const& skillLineAbilityStore)
-{
-    std::ofstream myfile("skill_line_ability.sql");
-    if (!myfile.is_open())
-        return;
-
-    printf("Extracting skill line abilities...\n");
-    uint32 count = 0;
-
-    myfile << "INSERT INTO `skill_line_ability` VALUES\n";
-    for (uint32 i = 0; i < skillLineAbilityStore.size(); ++i)
-    {
-        SkillLineAbilityEntry5875 const* skill = skillLineAbilityStore[i];
-        if (!skill)
-            continue;
-
-        count++;
-        if (count > 1)
-            myfile << ",\n";
-
-        skill->WriteToSqlFile(myfile, build);
-    }
-
-    myfile << ";";
-    myfile.close();
-    printf("Extracted %u SkillLineAbility.dbc rows.\n", count);
-}
-
-void ExportAreaTriggers(unsigned int build, std::vector<AreaTriggerEntry5875*> const& areaTriggerStore)
-{
-    std::ofstream myfile("areatrigger_template.sql");
-    if (!myfile.is_open())
-        return;
-
-    printf("Extracting area triggers...\n");
-    uint32 count = 0;
-
-    myfile << "INSERT INTO `areatrigger_template` VALUES\n";
-    for (uint32 i = 0; i < areaTriggerStore.size(); ++i)
-    {
-        AreaTriggerEntry5875 const* trigger = areaTriggerStore[i];
-        if (!trigger)
-            continue;
-
-        count++;
-        if (count > 1)
-            myfile << ",\n";
-
-        trigger->WriteToSqlFile(myfile, build);
-    }
-
-    myfile << ";";
-    myfile.close();
-    printf("Extracted %u AreaTrigger.dbc rows.\n", count);
-}
-
-void ExportCreatureSpellData(unsigned int build, std::vector<CreatureSpellDataEntry5875*> const& creatureSpellDataStore)
-{
-    std::ofstream myfile("pet_spell_data.sql");
-    if (!myfile.is_open())
-        return;
-
-    printf("Extracting creature spell data...\n");
-    uint32 count = 0;
-
-    myfile << "INSERT INTO `pet_spell_data` VALUES\n";
-    for (uint32 i = 0; i < creatureSpellDataStore.size(); ++i)
-    {
-        CreatureSpellDataEntry5875 const* data = creatureSpellDataStore[i];
-        if (!data)
-            continue;
-
-        count++;
-        if (count > 1)
-            myfile << ",\n";
-
-        data->WriteToSqlFile(myfile, build);
-    }
-
-    myfile << ";";
-    myfile.close();
-    printf("Extracted %u CreatureSpellData.dbc rows.\n", count);
-}
-
-void ExportMailTemplates(unsigned int build, std::vector<MailTemplateEntry5875*> const& mailTemplateStore)
-{
-    std::ofstream myfile("mail_text_template.sql");
-    if (!myfile.is_open())
-        return;
-
-    printf("Extracting mail templates...\n");
-    uint32 count = 0;
-
-    myfile << "INSERT INTO `mail_text_template` VALUES\n";
-    for (uint32 i = 0; i < mailTemplateStore.size(); ++i)
-    {
-        MailTemplateEntry5875 const* data = mailTemplateStore[i];
-        if (!data)
-            continue;
-
-        count++;
-        if (count > 1)
-            myfile << ",\n";
-
-        data->WriteToSqlFile(myfile, build);
-    }
-
-    myfile << ";";
-    myfile.close();
-    printf("Extracted %u MailTemplate.dbc rows.\n", count);
-}
-
-void ExportSkillLines(unsigned int build, std::vector<SkillLineEntry5875*> const& skillLineStore)
-{
-    std::ofstream myfile("skill_line.sql");
-    if (!myfile.is_open())
-        return;
-
-    printf("Extracting skill lines...\n");
-    uint32 count = 0;
-
-    myfile << "INSERT INTO `skill_line` VALUES\n";
-    for (uint32 i = 0; i < skillLineStore.size(); ++i)
-    {
-        SkillLineEntry5875 const* data = skillLineStore[i];
-        if (!data)
-            continue;
-
-        count++;
-        if (count > 1)
-            myfile << ",\n";
-
-        data->WriteToSqlFile(myfile, build);
-    }
-
-    myfile << ";";
-    myfile.close();
-    printf("Extracted %u MailTemplate.dbc rows.\n", count);
+    printf("Wrote %u SkillRaceClassInfo hotfix rows.\n", count);
 }

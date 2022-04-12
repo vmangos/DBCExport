@@ -1963,6 +1963,26 @@ struct FactionTemplateEntry5875
     {
         return !(other == *this);
     }
+
+    void WriteToSqlFile(std::ofstream& myfile, uint16 build) const
+    {
+        myfile << "(";
+        myfile << ID << ", "; // 1
+        myfile << build << ", ";
+        myfile << faction << ", ";// 2
+        myfile << factionFlags << ", "; // 3
+        myfile << ourMask << ", "; // 4
+        myfile << friendlyMask << ", "; // 5
+        myfile << hostileMask << ", "; // 6
+        myfile << enemyFaction[0] << ", "; // 7
+        myfile << enemyFaction[1] << ", "; // 8
+        myfile << enemyFaction[2] << ", "; // 9
+        myfile << enemyFaction[3] << ", "; // 10
+        myfile << friendFaction[0] << ", "; // 11
+        myfile << friendFaction[1] << ", "; // 12
+        myfile << friendFaction[2] << ", "; // 13
+        myfile << friendFaction[3] << ")"; // 14
+    }
 };
 
 struct TaxiNodesEntry5875
@@ -2014,6 +2034,27 @@ struct TaxiNodesEntry5875
     bool operator!=(TaxiNodesEntry5875 const& other) const
     {
         return !(other == *this);
+    }
+
+    void WriteToSqlFile(std::ofstream& myfile, uint16 build) const
+    {
+        myfile << "(";
+        myfile << ID << ", ";
+        myfile << build << ", ";
+        myfile << map_id << ", ";
+        myfile << x << ", ";
+        myfile << y << ", ";
+        myfile << z << ", '";
+        myfile << EscapeString(name[0]) << "', '";
+        myfile << EscapeString(name[1]) << "', '";
+        myfile << EscapeString(name[2]) << "', '";
+        myfile << EscapeString(name[3]) << "', '";
+        myfile << EscapeString(name[4]) << "', '";
+        myfile << EscapeString(name[5]) << "', '";
+        myfile << EscapeString(name[6]) << "', '";
+        myfile << EscapeString(name[7]) << "', ";
+        myfile << MountCreatureID[0] << ", ";
+        myfile << MountCreatureID[1] << ")";
     }
 };
 
@@ -2115,6 +2156,23 @@ struct SkillLineEntry5875
         myfile << EscapeString(description[7]) << "', ";
         myfile << spellIcon << ")";
     }
+
+    void WriteToHotfixCsvFile(std::ofstream& myfile) const
+    {
+        myfile << "\"" << name[0] << "\",";        // DisplayName_lang
+        myfile << "\"\",";                         // AlternateVerb_lang
+        myfile << "\"" << description[0] << "\","; // Description_lang
+        myfile << "\"\",";                         // HordeDisplayName_lang
+        myfile << "\"\",";                         // NeutralDisplayName
+        myfile << "\"" << id << "\",";             // ID
+        myfile << "\"" << categoryId << "\",";     // CategoryID
+        myfile << "\"" << 0 << "\",";              // SpellIconFileID
+        myfile << "\"" << 0 << "\",";              // CanLink
+        myfile << "\"" << 0 << "\",";              // ParentSkillLineID
+        myfile << "\"" << 0 << "\",";              // ParentTierIndex
+        myfile << "\"" << 0 << "\",";              // Flags
+        myfile << "\"" << 0 << "\"";                // SpellBookSpellID
+    }
 };
 
 struct SkillLineAbilityEntry5875
@@ -2201,6 +2259,86 @@ struct SkillLineAbilityEntry5875
         myfile << reqtrainpoints << ")";
     }
 };
+
+struct SkillRaceClassInfoEntry5875
+{
+    uint32    id;                                           // 0        m_ID
+    uint32    skillId;                                      // 1        m_skillID
+    uint32    raceMask;                                     // 2        m_raceMask
+    uint32    classMask;                                    // 3        m_classMask
+    uint32    flags;                                        // 4        m_flags
+    uint32    reqLevel;                                     // 5        m_minLevel
+    uint32    skillTierId;                                  // 6        m_skillTierID
+    uint32    skillCostID;                                  // 7        m_skillCostIndex
+
+    SkillRaceClassInfoEntry5875* ToLatestStructure() const
+    {
+        SkillRaceClassInfoEntry5875* data = new SkillRaceClassInfoEntry5875();
+        data->id = id;
+        data->skillId = skillId;
+        data->raceMask = raceMask;
+        data->classMask = classMask;
+        data->flags = flags;
+        data->reqLevel = reqLevel;
+        data->skillTierId = skillTierId;
+        data->skillCostID = skillCostID;
+        return data;
+    }
+
+    bool operator==(SkillRaceClassInfoEntry5875 const& other) const
+    {
+        if (other.id != id)
+            return false;
+        if (other.skillId != skillId)
+            return false;
+        if (other.raceMask != raceMask)
+            return false;
+        if (other.classMask != classMask)
+            return false;
+        if (other.flags != flags)
+            return false;
+        if (other.reqLevel != reqLevel)
+            return false;
+        if (other.skillTierId != skillTierId)
+            return false;
+        if (other.skillCostID != skillCostID)
+            return false;
+
+        return true;
+    }
+
+    bool operator!=(SkillRaceClassInfoEntry5875 const& other) const
+    {
+        return !(other == *this);
+    }
+
+    void WriteToSqlFile(std::ofstream& myfile, uint16 build) const
+    {
+        myfile << "(";
+        myfile << id << ", ";
+        myfile << build << ", ";
+        myfile << skillId << ", ";
+        myfile << raceMask << ", ";
+        myfile << classMask << ", ";
+        myfile << flags << ", ";
+        myfile << reqLevel << ", ";
+        myfile << skillTierId << ", ";
+        myfile << skillCostID << ")";
+    }
+
+    void WriteToHotfixCsvFile(std::ofstream& myfile) const
+    {
+        myfile << id << ",";                 // ID
+        myfile << raceMask << ",";           // RaceMask
+        myfile << skillId << ",";            // SkillID
+        myfile << classMask << ",";          // ClassMask
+        myfile << flags << ",";              // Flags
+        myfile << 0 << ",";                  // Availability
+        myfile << reqLevel << ",";           // MinLevel
+        myfile << skillTierId;               // SkillTierID
+    }
+};
+
 
 struct CreatureSpellDataEntry5875
 {

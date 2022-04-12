@@ -213,7 +213,7 @@ void LoadAllDbcFiles(uint32 build, std::string dbcPath, std::vector<AreaTriggerE
                      std::vector<FactionEntry5875*>& factionStore, std::vector<FactionTemplateEntry5875*>& factionTemplateStore,
                      std::vector<SpellEntry5875*>& spellStore, std::vector<SkillLineAbilityEntry5875*>& skillLineAbilityStore,
                      std::vector<CreatureSpellDataEntry5875*>& creatureSpellDataStore, std::vector<MailTemplateEntry5875*>& mailTemplateStore,
-                     std::vector<SkillLineEntry5875*>& skillLineStore)
+                     std::vector<SkillLineEntry5875*>& skillLineStore, std::vector<SkillRaceClassInfoEntry5875*>& skillRaceClassInfoStore)
 {
     StoreProblemList bad_dbc_files;
     uint32 availableDbcLocales = 0xFFFFFFFF;
@@ -227,6 +227,7 @@ void LoadAllDbcFiles(uint32 build, std::string dbcPath, std::vector<AreaTriggerE
     sCreatureSpellDataStore5875.Clear();
     sMailTemplateStore5875.Clear();
     sSkillLineStore5875.Clear();
+    sSkillRaceClassInfoStore5875.Clear();
 
     switch (build)
     {
@@ -234,7 +235,7 @@ void LoadAllDbcFiles(uint32 build, std::string dbcPath, std::vector<AreaTriggerE
         case 5595:
         {
             printf("\nReading data from DBC files...\n");
-            const uint32 DBCFilesCount = 9;
+            const uint32 DBCFilesCount = 10;
             BarGoLink bar(DBCFilesCount);
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sAreaTriggerStore5875, dbcPath, "AreaTrigger.dbc", true);
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sTaxiNodeStore5875, dbcPath, "TaxiNodes.dbc", true);
@@ -245,6 +246,7 @@ void LoadAllDbcFiles(uint32 build, std::string dbcPath, std::vector<AreaTriggerE
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sCreatureSpellDataStore5875, dbcPath, "CreatureSpellData.dbc", true);
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sMailTemplateStore5875, dbcPath, "MailTemplate.dbc", true);
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSkillLineStore5875, dbcPath, "SkillLine.dbc", true);
+            LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSkillRaceClassInfoStore5875, dbcPath, "SkillRaceClassInfo.dbc", true);
 
             CopyDbcStoreIntoVector<AreaTriggerEntry5875, AreaTriggerEntry5875>(sAreaTriggerStore5875, areaTriggerStore);
             CopyDbcStoreIntoVector<TaxiNodesEntry5875, TaxiNodesEntry5875>(sTaxiNodeStore5875, taxiNodesStore);
@@ -255,12 +257,13 @@ void LoadAllDbcFiles(uint32 build, std::string dbcPath, std::vector<AreaTriggerE
             CopyDbcStoreIntoVector<CreatureSpellDataEntry5875, CreatureSpellDataEntry5875>(sCreatureSpellDataStore5875, creatureSpellDataStore);
             CopyDbcStoreIntoVector<MailTemplateEntry5875, MailTemplateEntry5875>(sMailTemplateStore5875, mailTemplateStore);
             CopyDbcStoreIntoVector<SkillLineEntry5875, SkillLineEntry5875>(sSkillLineStore5875, skillLineStore);
+            CopyDbcStoreIntoVector<SkillRaceClassInfoEntry5875, SkillRaceClassInfoEntry5875>(sSkillRaceClassInfoStore5875, skillRaceClassInfoStore);
             break;
         }
         case 5464:
         {
             printf("\nReading data from DBC files...\n");
-            const uint32 DBCFilesCount = 9;
+            const uint32 DBCFilesCount = 10;
             BarGoLink bar(DBCFilesCount);
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sAreaTriggerStore5875, dbcPath, "AreaTrigger.dbc", true);
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sTaxiNodeStore5875, dbcPath, "TaxiNodes.dbc", true);
@@ -271,6 +274,7 @@ void LoadAllDbcFiles(uint32 build, std::string dbcPath, std::vector<AreaTriggerE
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sCreatureSpellDataStore5875, dbcPath, "CreatureSpellData.dbc", true);
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sMailTemplateStore5875, dbcPath, "MailTemplate.dbc", true);
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSkillLineStore5875, dbcPath, "SkillLine.dbc", true);
+            LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSkillRaceClassInfoStore5875, dbcPath, "SkillRaceClassInfo.dbc", true);
 
             CopyDbcStoreIntoVector<AreaTriggerEntry5875, AreaTriggerEntry5875>(sAreaTriggerStore5875, areaTriggerStore);
             CopyDbcStoreIntoVector<TaxiNodesEntry5875, TaxiNodesEntry5875>(sTaxiNodeStore5875, taxiNodesStore);
@@ -281,9 +285,38 @@ void LoadAllDbcFiles(uint32 build, std::string dbcPath, std::vector<AreaTriggerE
             CopyDbcStoreIntoVector<CreatureSpellDataEntry5875, CreatureSpellDataEntry5875>(sCreatureSpellDataStore5875, creatureSpellDataStore);
             CopyDbcStoreIntoVector<MailTemplateEntry5875, MailTemplateEntry5875>(sMailTemplateStore5875, mailTemplateStore);
             CopyDbcStoreIntoVector<SkillLineEntry5875, SkillLineEntry5875>(sSkillLineStore5875, skillLineStore);
+            CopyDbcStoreIntoVector<SkillRaceClassInfoEntry5875, SkillRaceClassInfoEntry5875>(sSkillRaceClassInfoStore5875, skillRaceClassInfoStore);
             break;
         }
         case 5302:
+        {
+            printf("\nReading data from DBC files...\n");
+            const uint32 DBCFilesCount = 10;
+            BarGoLink bar(DBCFilesCount);
+            LoadDBC(availableDbcLocales, bar, bad_dbc_files, sAreaTriggerStore5875, dbcPath, "AreaTrigger.dbc", true);
+            LoadDBC(availableDbcLocales, bar, bad_dbc_files, sTaxiNodeStore5302, dbcPath, "TaxiNodes.dbc", true);
+            LoadDBC(availableDbcLocales, bar, bad_dbc_files, sFactionStore5875, dbcPath, "Faction.dbc", true);
+            LoadDBC(availableDbcLocales, bar, bad_dbc_files, sFactionTemplateStore5875, dbcPath, "FactionTemplate.dbc", true);
+            LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSpellStore5302, dbcPath, "Spell.dbc", true);
+            LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSkillLineAbilityStore5875, dbcPath, "SkillLineAbility.dbc", true);
+            LoadDBC(availableDbcLocales, bar, bad_dbc_files, sCreatureSpellDataStore5875, dbcPath, "CreatureSpellData.dbc", true);
+            LoadDBC(availableDbcLocales, bar, bad_dbc_files, sMailTemplateStore5875, dbcPath, "MailTemplate.dbc", true);
+            LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSkillLineStore5875, dbcPath, "SkillLine.dbc", true);
+            LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSkillRaceClassInfoStore5875, dbcPath, "SkillRaceClassInfo.dbc", true);
+
+            CopyDbcStoreIntoVector<AreaTriggerEntry5875, AreaTriggerEntry5875>(sAreaTriggerStore5875, areaTriggerStore);
+            CopyDbcStoreIntoVector<TaxiNodesEntry5302, TaxiNodesEntry5875>(sTaxiNodeStore5302, taxiNodesStore);
+            CopyDbcStoreIntoVector<FactionEntry5875, FactionEntry5875>(sFactionStore5875, factionStore);
+            CopyDbcStoreIntoVector<FactionTemplateEntry5875, FactionTemplateEntry5875>(sFactionTemplateStore5875, factionTemplateStore);
+            CopyDbcStoreIntoVector<SpellEntry5302, SpellEntry5875>(sSpellStore5302, spellStore);
+            CopyDbcStoreIntoVector<SkillLineAbilityEntry5875, SkillLineAbilityEntry5875>(sSkillLineAbilityStore5875, skillLineAbilityStore);
+            CopyDbcStoreIntoVector<CreatureSpellDataEntry5875, CreatureSpellDataEntry5875>(sCreatureSpellDataStore5875, creatureSpellDataStore);
+            CopyDbcStoreIntoVector<MailTemplateEntry5875, MailTemplateEntry5875>(sMailTemplateStore5875, mailTemplateStore);
+            CopyDbcStoreIntoVector<SkillLineEntry5875, SkillLineEntry5875>(sSkillLineStore5875, skillLineStore);
+            CopyDbcStoreIntoVector<SkillRaceClassInfoEntry5875, SkillRaceClassInfoEntry5875>(sSkillRaceClassInfoStore5875, skillRaceClassInfoStore);
+            break;
+        }
+        case 5086:
         {
             printf("\nReading data from DBC files...\n");
             const uint32 DBCFilesCount = 9;
@@ -295,33 +328,8 @@ void LoadAllDbcFiles(uint32 build, std::string dbcPath, std::vector<AreaTriggerE
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSpellStore5302, dbcPath, "Spell.dbc", true);
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSkillLineAbilityStore5875, dbcPath, "SkillLineAbility.dbc", true);
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sCreatureSpellDataStore5875, dbcPath, "CreatureSpellData.dbc", true);
-            LoadDBC(availableDbcLocales, bar, bad_dbc_files, sMailTemplateStore5875, dbcPath, "MailTemplate.dbc", true);
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSkillLineStore5875, dbcPath, "SkillLine.dbc", true);
-
-            CopyDbcStoreIntoVector<AreaTriggerEntry5875, AreaTriggerEntry5875>(sAreaTriggerStore5875, areaTriggerStore);
-            CopyDbcStoreIntoVector<TaxiNodesEntry5302, TaxiNodesEntry5875>(sTaxiNodeStore5302, taxiNodesStore);
-            CopyDbcStoreIntoVector<FactionEntry5875, FactionEntry5875>(sFactionStore5875, factionStore);
-            CopyDbcStoreIntoVector<FactionTemplateEntry5875, FactionTemplateEntry5875>(sFactionTemplateStore5875, factionTemplateStore);
-            CopyDbcStoreIntoVector<SpellEntry5302, SpellEntry5875>(sSpellStore5302, spellStore);
-            CopyDbcStoreIntoVector<SkillLineAbilityEntry5875, SkillLineAbilityEntry5875>(sSkillLineAbilityStore5875, skillLineAbilityStore);
-            CopyDbcStoreIntoVector<CreatureSpellDataEntry5875, CreatureSpellDataEntry5875>(sCreatureSpellDataStore5875, creatureSpellDataStore);
-            CopyDbcStoreIntoVector<MailTemplateEntry5875, MailTemplateEntry5875>(sMailTemplateStore5875, mailTemplateStore);
-            CopyDbcStoreIntoVector<SkillLineEntry5875, SkillLineEntry5875>(sSkillLineStore5875, skillLineStore);
-            break;
-        }
-        case 5086:
-        {
-            printf("\nReading data from DBC files...\n");
-            const uint32 DBCFilesCount = 8;
-            BarGoLink bar(DBCFilesCount);
-            LoadDBC(availableDbcLocales, bar, bad_dbc_files, sAreaTriggerStore5875, dbcPath, "AreaTrigger.dbc", true);
-            LoadDBC(availableDbcLocales, bar, bad_dbc_files, sTaxiNodeStore5302, dbcPath, "TaxiNodes.dbc", true);
-            LoadDBC(availableDbcLocales, bar, bad_dbc_files, sFactionStore5875, dbcPath, "Faction.dbc", true);
-            LoadDBC(availableDbcLocales, bar, bad_dbc_files, sFactionTemplateStore5875, dbcPath, "FactionTemplate.dbc", true);
-            LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSpellStore5302, dbcPath, "Spell.dbc", true);
-            LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSkillLineAbilityStore5875, dbcPath, "SkillLineAbility.dbc", true);
-            LoadDBC(availableDbcLocales, bar, bad_dbc_files, sCreatureSpellDataStore5875, dbcPath, "CreatureSpellData.dbc", true);
-            LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSkillLineStore5875, dbcPath, "SkillLine.dbc", true);
+            LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSkillRaceClassInfoStore5875, dbcPath, "SkillRaceClassInfo.dbc", true);
 
             CopyDbcStoreIntoVector<AreaTriggerEntry5875, AreaTriggerEntry5875>(sAreaTriggerStore5875, areaTriggerStore);
             CopyDbcStoreIntoVector<TaxiNodesEntry5302, TaxiNodesEntry5875>(sTaxiNodeStore5302, taxiNodesStore);
@@ -331,12 +339,13 @@ void LoadAllDbcFiles(uint32 build, std::string dbcPath, std::vector<AreaTriggerE
             CopyDbcStoreIntoVector<SkillLineAbilityEntry5875, SkillLineAbilityEntry5875>(sSkillLineAbilityStore5875, skillLineAbilityStore);
             CopyDbcStoreIntoVector<CreatureSpellDataEntry5875, CreatureSpellDataEntry5875>(sCreatureSpellDataStore5875, creatureSpellDataStore);
             CopyDbcStoreIntoVector<SkillLineEntry5875, SkillLineEntry5875>(sSkillLineStore5875, skillLineStore);
+            CopyDbcStoreIntoVector<SkillRaceClassInfoEntry5875, SkillRaceClassInfoEntry5875>(sSkillRaceClassInfoStore5875, skillRaceClassInfoStore);
             break;
         }
         case 4878:
         {
             printf("\nReading data from DBC files...\n");
-            const uint32 DBCFilesCount = 8;
+            const uint32 DBCFilesCount = 9;
             BarGoLink bar(DBCFilesCount);
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sAreaTriggerStore5875, dbcPath, "AreaTrigger.dbc", true);
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sTaxiNodeStore5302, dbcPath, "TaxiNodes.dbc", true);
@@ -346,6 +355,7 @@ void LoadAllDbcFiles(uint32 build, std::string dbcPath, std::vector<AreaTriggerE
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSkillLineAbilityStore5875, dbcPath, "SkillLineAbility.dbc", true);
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sCreatureSpellDataStore5875, dbcPath, "CreatureSpellData.dbc", true);
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSkillLineStore5875, dbcPath, "SkillLine.dbc", true);
+            LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSkillRaceClassInfoStore5875, dbcPath, "SkillRaceClassInfo.dbc", true);
 
             CopyDbcStoreIntoVector<AreaTriggerEntry5875, AreaTriggerEntry5875>(sAreaTriggerStore5875, areaTriggerStore);
             CopyDbcStoreIntoVector<TaxiNodesEntry5302, TaxiNodesEntry5875>(sTaxiNodeStore5302, taxiNodesStore);
@@ -355,13 +365,14 @@ void LoadAllDbcFiles(uint32 build, std::string dbcPath, std::vector<AreaTriggerE
             CopyDbcStoreIntoVector<SkillLineAbilityEntry5875, SkillLineAbilityEntry5875>(sSkillLineAbilityStore5875, skillLineAbilityStore);
             CopyDbcStoreIntoVector<CreatureSpellDataEntry5875, CreatureSpellDataEntry5875>(sCreatureSpellDataStore5875, creatureSpellDataStore);
             CopyDbcStoreIntoVector<SkillLineEntry5875, SkillLineEntry5875>(sSkillLineStore5875, skillLineStore);
+            CopyDbcStoreIntoVector<SkillRaceClassInfoEntry5875, SkillRaceClassInfoEntry5875>(sSkillRaceClassInfoStore5875, skillRaceClassInfoStore);
             break;
         }
         case 4695:
         case 4544:
         {
             printf("\nReading data from DBC files...\n");
-            const uint32 DBCFilesCount = 7;
+            const uint32 DBCFilesCount = 8;
             BarGoLink bar(DBCFilesCount);
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sAreaTriggerStore5875, dbcPath, "AreaTrigger.dbc", true);
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sTaxiNodeStore5302, dbcPath, "TaxiNodes.dbc", true);
@@ -370,6 +381,7 @@ void LoadAllDbcFiles(uint32 build, std::string dbcPath, std::vector<AreaTriggerE
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSpellStore4695, dbcPath, "Spell.dbc", true);
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSkillLineAbilityStore5875, dbcPath, "SkillLineAbility.dbc", true);
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSkillLineStore5875, dbcPath, "SkillLine.dbc", true);
+            LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSkillRaceClassInfoStore5875, dbcPath, "SkillRaceClassInfo.dbc", true);
 
             CopyDbcStoreIntoVector<AreaTriggerEntry5875, AreaTriggerEntry5875>(sAreaTriggerStore5875, areaTriggerStore);
             CopyDbcStoreIntoVector<TaxiNodesEntry5302, TaxiNodesEntry5875>(sTaxiNodeStore5302, taxiNodesStore);
@@ -378,13 +390,14 @@ void LoadAllDbcFiles(uint32 build, std::string dbcPath, std::vector<AreaTriggerE
             CopyDbcStoreIntoVector<SpellEntry4695, SpellEntry5875>(sSpellStore4695, spellStore);
             CopyDbcStoreIntoVector<SkillLineAbilityEntry5875, SkillLineAbilityEntry5875>(sSkillLineAbilityStore5875, skillLineAbilityStore);
             CopyDbcStoreIntoVector<SkillLineEntry5875, SkillLineEntry5875>(sSkillLineStore5875, skillLineStore);
+            CopyDbcStoreIntoVector<SkillRaceClassInfoEntry5875, SkillRaceClassInfoEntry5875>(sSkillRaceClassInfoStore5875, skillRaceClassInfoStore);
             break;
         }
         case 4449:
         case 4375:
         {
             printf("\nReading data from DBC files...\n");
-            const uint32 DBCFilesCount = 7;
+            const uint32 DBCFilesCount = 8;
             BarGoLink bar(DBCFilesCount);
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sAreaTriggerStore5875, dbcPath, "AreaTrigger.dbc", true);
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sTaxiNodeStore5302, dbcPath, "TaxiNodes.dbc", true);
@@ -393,6 +406,7 @@ void LoadAllDbcFiles(uint32 build, std::string dbcPath, std::vector<AreaTriggerE
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSpellStore4449, dbcPath, "Spell.dbc", true);
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSkillLineAbilityStore5875, dbcPath, "SkillLineAbility.dbc", true);
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSkillLineStore5875, dbcPath, "SkillLine.dbc", true);
+            LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSkillRaceClassInfoStore5875, dbcPath, "SkillRaceClassInfo.dbc", true);
 
             CopyDbcStoreIntoVector<AreaTriggerEntry5875, AreaTriggerEntry5875>(sAreaTriggerStore5875, areaTriggerStore);
             CopyDbcStoreIntoVector<TaxiNodesEntry5302, TaxiNodesEntry5875>(sTaxiNodeStore5302, taxiNodesStore);
@@ -401,13 +415,14 @@ void LoadAllDbcFiles(uint32 build, std::string dbcPath, std::vector<AreaTriggerE
             CopyDbcStoreIntoVector<SpellEntry4449, SpellEntry5875>(sSpellStore4449, spellStore);
             CopyDbcStoreIntoVector<SkillLineAbilityEntry5875, SkillLineAbilityEntry5875>(sSkillLineAbilityStore5875, skillLineAbilityStore);
             CopyDbcStoreIntoVector<SkillLineEntry5875, SkillLineEntry5875>(sSkillLineStore5875, skillLineStore);
+            CopyDbcStoreIntoVector<SkillRaceClassInfoEntry5875, SkillRaceClassInfoEntry5875>(sSkillRaceClassInfoStore5875, skillRaceClassInfoStore);
             break;
         }
         case 4297:
         case 4222:
         {
             printf("\nReading data from DBC files...\n");
-            const uint32 DBCFilesCount = 7;
+            const uint32 DBCFilesCount = 8;
             BarGoLink bar(DBCFilesCount);
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sAreaTriggerStore5875, dbcPath, "AreaTrigger.dbc", true);
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sTaxiNodeStore5302, dbcPath, "TaxiNodes.dbc", true);
@@ -416,6 +431,7 @@ void LoadAllDbcFiles(uint32 build, std::string dbcPath, std::vector<AreaTriggerE
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSpellStore4297, dbcPath, "Spell.dbc", true);
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSkillLineAbilityStore5875, dbcPath, "SkillLineAbility.dbc", true);
             LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSkillLineStore5875, dbcPath, "SkillLine.dbc", true);
+            LoadDBC(availableDbcLocales, bar, bad_dbc_files, sSkillRaceClassInfoStore5875, dbcPath, "SkillRaceClassInfo.dbc", true);
 
             CopyDbcStoreIntoVector<AreaTriggerEntry5875, AreaTriggerEntry5875>(sAreaTriggerStore5875, areaTriggerStore);
             CopyDbcStoreIntoVector<TaxiNodesEntry5302, TaxiNodesEntry5875>(sTaxiNodeStore5302, taxiNodesStore);
@@ -424,6 +440,7 @@ void LoadAllDbcFiles(uint32 build, std::string dbcPath, std::vector<AreaTriggerE
             CopyDbcStoreIntoVector<SpellEntry4297, SpellEntry5875>(sSpellStore4297, spellStore);
             CopyDbcStoreIntoVector<SkillLineAbilityEntry5875, SkillLineAbilityEntry5875>(sSkillLineAbilityStore5875, skillLineAbilityStore);
             CopyDbcStoreIntoVector<SkillLineEntry5875, SkillLineEntry5875>(sSkillLineStore5875, skillLineStore);
+            CopyDbcStoreIntoVector<SkillRaceClassInfoEntry5875, SkillRaceClassInfoEntry5875>(sSkillRaceClassInfoStore5875, skillRaceClassInfoStore);
             break;
         }
         default:
@@ -461,17 +478,19 @@ void ExportAllDbcFilesToSql()
     std::vector<CreatureSpellDataEntry5875*> creatureSpellDataStore;
     std::vector<MailTemplateEntry5875*> mailTemplateStore;
     std::vector<SkillLineEntry5875*> skillLineStore;
+    std::vector<SkillRaceClassInfoEntry5875*> skillRaceClassInfoStore;
 
-    LoadAllDbcFiles(build, dbcPath, areaTriggerStore, taxiNodesStore, factionStore, factionTemplateStore, spellStore, skillLineAbilityStore, creatureSpellDataStore, mailTemplateStore, skillLineStore);
-    ExportAreaTriggers(build, areaTriggerStore);
-    ExportFactions(build, factionStore);
-    ExportFactionTemplates(build, factionTemplateStore);
-    ExportSpells(build, spellStore);
-    ExportSkillLineAbilities(build, skillLineAbilityStore);
-    ExportTaxiNodes(build, taxiNodesStore);
-    ExportCreatureSpellData(build, creatureSpellDataStore);
-    ExportMailTemplates(build, mailTemplateStore);
-    ExportSkillLines(build, skillLineStore);
+    LoadAllDbcFiles(build, dbcPath, areaTriggerStore, taxiNodesStore, factionStore, factionTemplateStore, spellStore, skillLineAbilityStore, creatureSpellDataStore, mailTemplateStore, skillLineStore, skillRaceClassInfoStore);
+    ExportToSqlFile(build, "areatrigger_template.sql", "areatrigger_template", areaTriggerStore);
+    ExportToSqlFile(build, "faction.sql", "faction", factionStore);
+    ExportToSqlFile(build, "faction_template.sql", "faction_template", factionTemplateStore);
+    ExportToSqlFile(build, "spell_template.sql", "spell_template", spellStore);
+    ExportToSqlFile(build, "skill_line_ability.sql", "skill_line_ability", skillLineAbilityStore);
+    ExportToSqlFile(build, "taxi_nodes.sql", "taxi_nodes", taxiNodesStore);
+    ExportToSqlFile(build, "pet_spell_data.sql", "pet_spell_data", creatureSpellDataStore);
+    ExportToSqlFile(build, "mail_template.sql", "mail_template", mailTemplateStore);
+    ExportToSqlFile(build, "skill_line.sql", "skill_line", skillLineStore);
+    ExportToSqlFile(build, "skill_race_class_info.sql", "skill_race_class_info", skillRaceClassInfoStore);
 }
 
 template <class T>
@@ -526,22 +545,28 @@ void CompareDBCs()
     std::vector<CreatureSpellDataEntry5875*> creatureSpellDataStore1, creatureSpellDataStore2;
     std::vector<MailTemplateEntry5875*> mailTemplateStore1, mailTemplateStore2;
     std::vector<SkillLineEntry5875*> skillLineStore1, skillLineStore2;
+    std::vector<SkillRaceClassInfoEntry5875*> skillRaceClassInfoStore1, skillRaceClassInfoStore2;
 
     printf("Loading dbcs from %s\n", dbcPath1.c_str());
-    LoadAllDbcFiles(build1, dbcPath1, areaTriggerStore1, taxiNodesStore1, factionStore1, factionTemplateStore1, spellStore1, skillLineAbilityStore1, creatureSpellDataStore1, mailTemplateStore1, skillLineStore1);
+    LoadAllDbcFiles(build1, dbcPath1, areaTriggerStore1, taxiNodesStore1, factionStore1, factionTemplateStore1, spellStore1, skillLineAbilityStore1, creatureSpellDataStore1, mailTemplateStore1, skillLineStore1, skillRaceClassInfoStore1);
     printf("Loading dbcs from %s\n", dbcPath2.c_str());
-    LoadAllDbcFiles(build2, dbcPath2, areaTriggerStore2, taxiNodesStore2, factionStore2, factionTemplateStore2, spellStore2, skillLineAbilityStore2, creatureSpellDataStore2, mailTemplateStore2, skillLineStore2);
+    LoadAllDbcFiles(build2, dbcPath2, areaTriggerStore2, taxiNodesStore2, factionStore2, factionTemplateStore2, spellStore2, skillLineAbilityStore2, creatureSpellDataStore2, mailTemplateStore2, skillLineStore2, skillRaceClassInfoStore2);
+
+    printf("Do you want to write hotfixes? ");
+    bool hotfix = GetChar() == 'y';
 
     printf("Select dbc to compare:\n");
-    printf("1. AreaTrigger\n");
-    printf("2. TaxiNodes\n");
-    printf("3. Faction\n");
-    printf("4. FactionTemplate\n");
-    printf("5. Spell\n");
-    printf("6. SkillLineAbility\n");
-    printf("7. CreatureSpellData\n");
-    printf("8. MailTemplate\n");
-    printf("9. SkillLine\n");
+    printf(" 1. AreaTrigger\n");
+    printf(" 2. TaxiNodes\n");
+    printf(" 3. Faction\n");
+    printf(" 4. FactionTemplate\n");
+    printf(" 5. Spell\n");
+    printf(" 6. SkillLineAbility\n");
+    printf(" 7. CreatureSpellData\n");
+    printf(" 8. MailTemplate\n");
+    printf(" 9. SkillLine\n");
+    printf("10. SkillRaceClassInfo\n");
+    printf("> ");
 
     std::set<size_t> added;
     std::set<size_t> removed;
@@ -576,6 +601,27 @@ void CompareDBCs()
             break;
         case 9:
             CompareDbcStores(skillLineStore1, skillLineStore2, added, removed, changed);
+            if (hotfix)
+            {
+                std::set<uint32> exports;
+                for (auto id : changed)
+                    exports.insert(id);
+                for (auto id : added)
+                    exports.insert(id);
+                ExportSkillLineHotfixes(exports, skillLineStore2);
+            }
+            break;
+        case 10:
+            CompareDbcStores(skillRaceClassInfoStore1, skillRaceClassInfoStore2, added, removed, changed);
+            if (hotfix)
+            {
+                std::set<uint32> exports;
+                for (auto id : changed)
+                    exports.insert(id);
+                for (auto id : added)
+                    exports.insert(id);
+                ExportSkillRaceClassInfoHotfixes(exports, skillRaceClassInfoStore2);
+            }
             break;
         default:
             printf("Invalid selection.");
