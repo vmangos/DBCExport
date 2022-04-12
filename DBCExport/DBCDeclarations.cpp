@@ -8,6 +8,7 @@ const char SpellEntryfmt4878[] = "niiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiifiiiiiiiiii
 const char SpellEntryfmt4695[] = "niiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiifiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiffffffiiiiiiiiiiiiiiiiiifffiiiiiiiiiiiifffiiiiissssssssissssssssissssssssissssssssiiiiiiiiiiifffi";
 const char SpellEntryfmt4449[] = "niiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiifiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiffffffiiiiiiiiiiiiiiiiiifffiiiiiiiiiiiifffiiiiissssssssissssssssissssssssissssssssiiiiiiiiiiifffi";
 const char SpellEntryfmt4297[] = "niiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiifiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiffffffiiiiiiiiiiiiiiiiiifffiiiiiiiiiiiifffiiiiissssssssissssssssissssssssissssssssiiiiiiiiiiifffi";
+char const SkillLinefmt5875[] = "niissssssssxssssssssxi";
 const char SkillLineAbilityfmt5875[] = "niiiixxiiiiixxi";
 const char FactionEntryfmt5875[]    = "niiiiiiiiiiiiiiiiiissssssssxssssssssx";
 const char FactionEntryfmt4297[] = "niiiiiiiiiiiiiiiiiissssssssx";
@@ -25,6 +26,7 @@ DBCStorage <SpellEntry4878> sSpellStore4878(SpellEntryfmt4878);
 DBCStorage <SpellEntry4695> sSpellStore4695(SpellEntryfmt4695);
 DBCStorage <SpellEntry4449> sSpellStore4449(SpellEntryfmt4449);
 DBCStorage <SpellEntry4297> sSpellStore4297(SpellEntryfmt4297);
+DBCStorage <SkillLineEntry5875> sSkillLineStore5875(SkillLinefmt5875);
 DBCStorage <SkillLineAbilityEntry5875> sSkillLineAbilityStore5875(SkillLineAbilityfmt5875);
 DBCStorage <FactionEntry5875> sFactionStore5875(FactionEntryfmt5875);
 DBCStorage <FactionEntry4297> sFactionStore4297(FactionEntryfmt4297);

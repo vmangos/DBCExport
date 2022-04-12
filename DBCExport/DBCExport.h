@@ -8,3 +8,4 @@ void ExportFactions(unsigned int build, std::vector<FactionEntry5875*> const& fa
 void ExportFactionTemplates(unsigned int build, std::vector<FactionTemplateEntry5875*> const& factionTemplateStore);
 void ExportCreatureSpellData(unsigned int build, std::vector<CreatureSpellDataEntry5875*> const& creatureSpellDataStore);
 void ExportMailTemplates(unsigned int build, std::vector<MailTemplateEntry5875*> const& mailTemplateStore);
+void ExportSkillLines(unsigned int build, std::vector<SkillLineEntry5875*> const& skillLineStore);
