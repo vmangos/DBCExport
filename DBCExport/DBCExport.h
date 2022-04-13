@@ -37,3 +37,10 @@ void ExportToSqlFile(unsigned int build, char const* fileName, char const* table
 
 void ExportSkillLineHotfixes(std::set<uint32> entries, std::vector<SkillLineEntry5875*> const& store);
 void ExportSkillRaceClassInfoHotfixes(std::set<uint32> entries, std::vector<SkillRaceClassInfoEntry5875*> const& store);
+void ExportSkillLineAbilityHotfixes(std::set<uint32> entries, std::vector<SkillLineAbilityEntry5875*> const& store);
+void ExportSpellHotfixes(std::set<uint32> entries, std::vector<SpellEntry5875*> const& store);
+void ExportSpellNameHotfixes(std::set<uint32> entries, std::vector<SpellEntry5875*> const& store);
+void ExportSpellLevelsHotfixes(std::set<uint32> entries, std::vector<SpellEntry5875*> const& store);
+void ExportSpellAuraOptionsHotfixes(std::set<uint32> entries, std::vector<SpellEntry5875*> const& store);
+void ExportSpellMiscHotfixes(std::set<uint32> entries, std::vector<SpellEntry5875*> const& store);
+void ExportSpellEffectHotfixes(std::set<uint32> entries, std::vector<SpellEntry5875*> const& store);
