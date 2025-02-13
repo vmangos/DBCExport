@@ -160,6 +160,7 @@
     <ClCompile Include="Database\DbField.cpp" />
     <ClCompile Include="Database\QueryObject.cpp" />
     <ClCompile Include="Database\QueryResult.cpp" />
+    <ClCompile Include="DB2Data.cpp" />
     <ClCompile Include="DBCDeclarations.cpp" />
     <ClCompile Include="DBCExport.cpp" />
     <ClCompile Include="DBCFileLoader.cpp" />
@@ -170,11 +171,13 @@
   <ItemGroup>
     <ClInclude Include="ByteConverter.h" />
     <ClInclude Include="Common.h" />
+    <ClInclude Include="csv.h" />
     <ClInclude Include="Database\Database.h" />
     <ClInclude Include="Database\DbField.h" />
     <ClInclude Include="Database\QueryObjects.h" />
     <ClInclude Include="Database\QueryResult.h" />
     <ClInclude Include="Database\SafeQueue.h" />
+    <ClInclude Include="DB2Data.h" />
     <ClInclude Include="DBCDeclarations.h" />
     <ClInclude Include="DBCExport.h" />
     <ClInclude Include="DBCFileLoader.h" />

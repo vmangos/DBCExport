@@ -240,7 +240,7 @@ void ExportSpellEffectHotfixes(std::set<uint32> entries, std::vector<SpellEntry5
             if (!store[id]->Effect[i])
                 continue;
 
-                count++;
+            count++;
             if (count > 1)
                 myfile << "\n";
 
@@ -251,4 +251,33 @@ void ExportSpellEffectHotfixes(std::set<uint32> entries, std::vector<SpellEntry5
 
     myfile.close();
     printf("Wrote %u SpellEffect hotfix rows.\n", count);
+}
+
+void ExportSpellXSpellVisualHotfixes(std::set<uint32> entries, std::vector<SpellEntry5875*> const& store)
+{
+    std::ofstream myfile("HotFix_SpellXSpellVisual.csv");
+    if (!myfile.is_open())
+        return;
+
+    printf("Writing SpellXSpellVisual hotfixes...\n");
+    uint32 count = 0;
+
+    myfile << "Id,DifficultyId,SpellVisualId,Probability,Flags,Priority,SpellIconFileId,ActiveIconFileId,ViewerUnitConditionId,ViewerPlayerConditionId,CasterUnitConditionId,CasterPlayerConditionId,SpellId\n";
+    for (auto const& id : entries)
+    {
+        if (!store[id])
+            continue;
+
+        if (!store[id]->SpellVisual)
+            continue;
+
+        count++;
+        if (count > 1)
+            myfile << "\n";
+
+        store[id]->WriteSpellXSpellVisualHotfixRow(myfile);
+    }
+
+    myfile.close();
+    printf("Wrote %u SpellXSpellVisual hotfix rows.\n", count);
 }

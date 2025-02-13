@@ -44,3 +44,4 @@ void ExportSpellLevelsHotfixes(std::set<uint32> entries, std::vector<SpellEntry5
 void ExportSpellAuraOptionsHotfixes(std::set<uint32> entries, std::vector<SpellEntry5875*> const& store);
 void ExportSpellMiscHotfixes(std::set<uint32> entries, std::vector<SpellEntry5875*> const& store);
 void ExportSpellEffectHotfixes(std::set<uint32> entries, std::vector<SpellEntry5875*> const& store);
+void ExportSpellXSpellVisualHotfixes(std::set<uint32> entries, std::vector<SpellEntry5875*> const& store);
