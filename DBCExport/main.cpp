@@ -554,12 +554,6 @@ void CompareDBCs()
 
     printf("Do you want to write hotfixes? ");
     bool hotfix = GetChar() == 'y';
-    bool includeChanged = false;
-    if (hotfix)
-    {
-        printf("Include changed rows? ");
-        includeChanged = GetChar() == 'y';
-    }
 
     printf("Select dbc to compare:\n");
     printf(" 1. AreaTrigger\n");
@@ -595,38 +589,9 @@ void CompareDBCs()
             break;
         case 5:
             CompareDbcStores(spellStore1, spellStore2, added, removed, changed);
-            if (hotfix)
-            {
-                std::set<uint32> exports;
-                if (includeChanged)
-                {
-                    for (auto id : changed)
-                        exports.insert(id);
-                }
-                for (auto id : added)
-                    exports.insert(id);
-                ExportSpellHotfixes(exports, spellStore2);
-                ExportSpellNameHotfixes(exports, spellStore2);
-                ExportSpellLevelsHotfixes(exports, spellStore2);
-                ExportSpellAuraOptionsHotfixes(exports, spellStore2);
-                ExportSpellMiscHotfixes(exports, spellStore2);
-                ExportSpellEffectHotfixes(exports, spellStore2);
-            }
             break;
         case 6:
             CompareDbcStores(skillLineAbilityStore1, skillLineAbilityStore2, added, removed, changed);
-            if (hotfix)
-            {
-                std::set<uint32> exports;
-                if (includeChanged)
-                {
-                    for (auto id : changed)
-                        exports.insert(id);
-                }
-                for (auto id : added)
-                    exports.insert(id);
-                ExportSkillLineAbilityHotfixes(exports, skillLineAbilityStore2);
-            }
             break;
         case 7:
             CompareDbcStores(creatureSpellDataStore1, creatureSpellDataStore2, added, removed, changed);
@@ -639,11 +604,8 @@ void CompareDBCs()
             if (hotfix)
             {
                 std::set<uint32> exports;
-                if (includeChanged)
-                {
-                    for (auto id : changed)
-                        exports.insert(id);
-                }
+                for (auto id : changed)
+                    exports.insert(id);
                 for (auto id : added)
                     exports.insert(id);
                 ExportSkillLineHotfixes(exports, skillLineStore2);
@@ -654,11 +616,8 @@ void CompareDBCs()
             if (hotfix)
             {
                 std::set<uint32> exports;
-                if (includeChanged)
-                {
-                    for (auto id : changed)
-                        exports.insert(id);
-                }
+                for (auto id : changed)
+                    exports.insert(id);
                 for (auto id : added)
                     exports.insert(id);
                 ExportSkillRaceClassInfoHotfixes(exports, skillRaceClassInfoStore2);
