@@ -5,7 +5,6 @@
 #include <fstream>
 #include "SharedDefines.h"
 #include "Utility.h"
-#include "DB2Data.h"
 
 #if defined( __GNUC__ )
 #pragma pack(1)
@@ -605,12 +604,40 @@ struct SpellEntry5875
         myfile << spellEntry->activeIconID << ", "; // 119
         myfile << spellEntry->spellPriority << ", "; // 120
         myfile << "'" << EscapeString(spellEntry->SpellName[0]) << "', "; // 121
+        myfile << "'" << EscapeString(spellEntry->SpellName[1]) << "', "; // 122
+        myfile << "'" << EscapeString(spellEntry->SpellName[2]) << "', "; // 123
+        myfile << "'" << EscapeString(spellEntry->SpellName[3]) << "', "; // 124
+        myfile << "'" << EscapeString(spellEntry->SpellName[4]) << "', "; // 125
+        myfile << "'" << EscapeString(spellEntry->SpellName[5]) << "', "; // 126
+        myfile << "'" << EscapeString(spellEntry->SpellName[6]) << "', "; // 127
+        myfile << "'" << EscapeString(spellEntry->SpellName[7]) << "', "; // 128
         myfile << spellEntry->SpellNameFlag << ", "; // 129
         myfile << "'" << EscapeString(spellEntry->Rank[0]) << "', "; // 130
+        myfile << "'" << EscapeString(spellEntry->Rank[1]) << "', "; // 131
+        myfile << "'" << EscapeString(spellEntry->Rank[2]) << "', "; // 132
+        myfile << "'" << EscapeString(spellEntry->Rank[3]) << "', "; // 133
+        myfile << "'" << EscapeString(spellEntry->Rank[4]) << "', "; // 134
+        myfile << "'" << EscapeString(spellEntry->Rank[5]) << "', "; // 135
+        myfile << "'" << EscapeString(spellEntry->Rank[6]) << "', "; // 136
+        myfile << "'" << EscapeString(spellEntry->Rank[7]) << "', "; // 137
         myfile << spellEntry->RankFlags << ", "; // 138
         myfile << "'" << EscapeString(spellEntry->Description[0]) << "', "; // 139
+        myfile << "'" << EscapeString(spellEntry->Description[1]) << "', "; // 140
+        myfile << "'" << EscapeString(spellEntry->Description[2]) << "', "; // 141
+        myfile << "'" << EscapeString(spellEntry->Description[3]) << "', "; // 142
+        myfile << "'" << EscapeString(spellEntry->Description[4]) << "', "; // 143
+        myfile << "'" << EscapeString(spellEntry->Description[5]) << "', "; // 144
+        myfile << "'" << EscapeString(spellEntry->Description[6]) << "', "; // 145
+        myfile << "'" << EscapeString(spellEntry->Description[7]) << "', "; // 146
         myfile << spellEntry->DescriptionFlags << ", "; // 147
         myfile << "'" << EscapeString(spellEntry->ToolTip[0]) << "', "; // 148
+        myfile << "'" << EscapeString(spellEntry->ToolTip[1]) << "', "; // 149
+        myfile << "'" << EscapeString(spellEntry->ToolTip[2]) << "', "; // 150
+        myfile << "'" << EscapeString(spellEntry->ToolTip[3]) << "', "; // 151
+        myfile << "'" << EscapeString(spellEntry->ToolTip[4]) << "', "; // 152
+        myfile << "'" << EscapeString(spellEntry->ToolTip[5]) << "', "; // 153
+        myfile << "'" << EscapeString(spellEntry->ToolTip[6]) << "', "; // 154
+        myfile << "'" << EscapeString(spellEntry->ToolTip[7]) << "', "; // 155
         myfile << spellEntry->ToolTipFlags << ", "; // 156
         myfile << spellEntry->ManaCostPercentage << ", "; // 157
         myfile << spellEntry->StartRecoveryCategory << ", "; // 158
@@ -738,23 +765,6 @@ struct SpellEntry5875
         myfile << 0 << ",";                         // EffectSpellClassMask4
         myfile << EffectImplicitTargetA[index] << ","; // ImplicitTarget1
         myfile << EffectImplicitTargetB[index] << ","; // ImplicitTarget2
-        myfile << Id;                               // SpellID
-    }
-
-    void WriteSpellXSpellVisualHotfixRow(std::ofstream& myfile) const
-    {
-        myfile << DB2Data::GetSpellXSpellVisualId(Id) << ",";   // ID
-        myfile << 0 << ",";                         // DifficultyID
-        myfile << SpellVisual << ",";               // SpellVisualID
-        myfile << 1 << ",";                         // Probability
-        myfile << 0 << ",";                         // Flags
-        myfile << 1 << ",";                         // Priority
-        myfile << 0 << ",";                         // SpellIconFileID
-        myfile << 0 << ",";                         // ActiveIconFileID
-        myfile << 0 << ",";                         // ViewerUnitConditionID
-        myfile << 0 << ",";                         // ViewerPlayerConditionID
-        myfile << 0 << ",";                         // CasterUnitConditionID
-        myfile << 0 << ",";                         // CasterPlayerConditionID
         myfile << Id;                               // SpellID
     }
 };

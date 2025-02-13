@@ -20,7 +20,6 @@
     <ClCompile Include="Database\QueryResult.cpp">
       <Filter>Database</Filter>
     </ClCompile>
-    <ClCompile Include="DB2Data.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ByteConverter.h" />
@@ -52,8 +51,6 @@
     </ClInclude>
     <ClInclude Include="DBCStructure.h" />
     <ClInclude Include="Utility.h" />
-    <ClInclude Include="csv.h" />
-    <ClInclude Include="DB2Data\DB2Data.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Database">

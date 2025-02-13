@@ -9,7 +9,6 @@
 #include <fstream>
 #include <set>
 #include "Database\Database.h"
-#include "DB2Data.h"
 
 static bool ReadDBCBuildFileText(const std::string& dbc_path, char const* localeName, std::string& text)
 {
@@ -558,8 +557,6 @@ void CompareDBCs()
     bool includeChanged = false;
     if (hotfix)
     {
-        DB2Data::LoadSpellXSpellVisual(DB2Data::Classic::g_db2SpellXSpellVisual, DB2Data::Classic::g_maxSpellXSpellVisualId, "SpellXSpellVisual1.csv");
-        DB2Data::LoadSpellXSpellVisual(DB2Data::TBC::g_db2SpellXSpellVisual, DB2Data::TBC::g_maxSpellXSpellVisualId, "SpellXSpellVisual2.csv");
         printf("Include changed rows? ");
         includeChanged = GetChar() == 'y';
     }
@@ -614,7 +611,6 @@ void CompareDBCs()
                 ExportSpellAuraOptionsHotfixes(exports, spellStore2);
                 ExportSpellMiscHotfixes(exports, spellStore2);
                 ExportSpellEffectHotfixes(exports, spellStore2);
-                ExportSpellXSpellVisualHotfixes(exports, spellStore2);
             }
             break;
         case 6:
