@@ -18,6 +18,7 @@ const char TaxiNodesEntryfmt5875[] = "nifffssssssssxii";
 const char TaxiNodesEntryfmt5302[] = "nifffssssssssx";
 const char CreatureSpellDatafmt5875[] = "niiiixxxx";
 const char MailTemplateEntryfmt5875[] = "nssssssssx";
+char const WorldSafeLocsEntryfmt[] = "nifffssssssssi";
 
 DBCStorage <AreaTriggerEntry5875> sAreaTriggerStore5875(AreaTriggerEntryfmt5875);
 DBCStorage <SpellEntry5875> sSpellStore5875(SpellEntryfmt5875);
@@ -37,3 +38,4 @@ DBCStorage <TaxiNodesEntry5875> sTaxiNodeStore5875(TaxiNodesEntryfmt5875);
 DBCStorage <TaxiNodesEntry5302> sTaxiNodeStore5302(TaxiNodesEntryfmt5302);
 DBCStorage <CreatureSpellDataEntry5875> sCreatureSpellDataStore5875(CreatureSpellDatafmt5875);
 DBCStorage <MailTemplateEntry5875> sMailTemplateStore5875(MailTemplateEntryfmt5875);
+DBCStorage <WorldSafeLocsEntry> sWorldSafeLocsStore(WorldSafeLocsEntryfmt);

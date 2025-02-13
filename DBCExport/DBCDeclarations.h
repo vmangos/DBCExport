@@ -18,3 +18,4 @@ extern DBCStorage <TaxiNodesEntry5875>               sTaxiNodeStore5875;
 extern DBCStorage <TaxiNodesEntry5302>               sTaxiNodeStore5302;
 extern DBCStorage <CreatureSpellDataEntry5875>       sCreatureSpellDataStore5875;
 extern DBCStorage <MailTemplateEntry5875>            sMailTemplateStore5875;
+extern DBCStorage <WorldSafeLocsEntry>               sWorldSafeLocsStore;

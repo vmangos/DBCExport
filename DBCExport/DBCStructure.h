@@ -2399,6 +2399,78 @@ struct MailTemplateEntry5875
     }
 };
 
+struct WorldSafeLocsEntry
+{
+    uint32    ID;                                           // 0        m_ID
+    uint32    map_id;                                       // 1        m_continent
+    float     x;                                            // 2        m_locX
+    float     y;                                            // 3        m_locY
+    float     z;                                            // 4        m_locZ
+    char*     name[MAX_DBC_LOCALE];                         // 5-12     m_AreaName_lang
+    uint32    nameFlags;                                    // 13 string flags
+
+    WorldSafeLocsEntry* ToLatestStructure() const
+    {
+        WorldSafeLocsEntry* data = new WorldSafeLocsEntry();
+        data->ID = ID;
+        data->map_id = map_id;
+        data->x = x;
+        data->y = y;
+        data->z = z;
+        CopyStringArrays(name, data->name, MAX_DBC_LOCALE);
+        data->nameFlags = nameFlags;
+        return data;
+    }
+
+    bool operator==(WorldSafeLocsEntry const& other) const
+    {
+        if (other.ID != ID)
+            return false;
+        if (other.map_id != map_id)
+            return false;
+        if (other.x != x)
+            return false;
+        if (other.y != y)
+            return false;
+        if (other.z != z)
+            return false;
+
+        if (!CompareStringArrays(other.name, name, MAX_DBC_LOCALE))
+            return false;
+
+        if (other.nameFlags != nameFlags)
+            return false;
+
+        return true;
+    }
+
+    bool operator!=(WorldSafeLocsEntry const& other) const
+    {
+        return !(other == *this);
+    }
+
+    void WriteToSqlFile(std::ofstream& myfile, uint16 build) const
+    {
+        myfile << "(";
+        myfile << ID << ", ";
+        //myfile << build << ", ";
+        myfile << map_id << ", ";
+        myfile << x << ", ";
+        myfile << y << ", ";
+        myfile << z << ", ";
+        myfile << 0 << ", '";
+        myfile << EscapeString(name[0]) << "', '";
+        myfile << EscapeString(name[1]) << "', '";
+        myfile << EscapeString(name[2]) << "', '";
+        myfile << EscapeString(name[3]) << "', '";
+        myfile << EscapeString(name[4]) << "', ";
+        myfile << EscapeString(name[5]) << "', '";
+        myfile << EscapeString(name[6]) << "', '";
+        myfile << EscapeString(name[7]) << "', '";
+        myfile << nameFlags << ")";
+    }
+};
+
 #if defined( __GNUC__ )
 #pragma pack()
 #else
