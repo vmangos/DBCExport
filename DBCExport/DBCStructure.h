@@ -2463,10 +2463,10 @@ struct WorldSafeLocsEntry
         myfile << EscapeString(name[1]) << "', '";
         myfile << EscapeString(name[2]) << "', '";
         myfile << EscapeString(name[3]) << "', '";
-        myfile << EscapeString(name[4]) << "', ";
+        myfile << EscapeString(name[4]) << "', '";
         myfile << EscapeString(name[5]) << "', '";
         myfile << EscapeString(name[6]) << "', '";
-        myfile << EscapeString(name[7]) << "', '";
+        myfile << EscapeString(name[7]) << "', ";
         myfile << nameFlags << ")";
     }
 };
