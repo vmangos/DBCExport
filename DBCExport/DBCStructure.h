@@ -2156,23 +2156,6 @@ struct SkillLineEntry5875
         myfile << EscapeString(description[7]) << "', ";
         myfile << spellIcon << ")";
     }
-
-    void WriteToHotfixCsvFile(std::ofstream& myfile) const
-    {
-        myfile << "\"" << name[0] << "\",";        // DisplayName_lang
-        myfile << "\"\",";                         // AlternateVerb_lang
-        myfile << "\"" << description[0] << "\","; // Description_lang
-        myfile << "\"\",";                         // HordeDisplayName_lang
-        myfile << "\"\",";                         // NeutralDisplayName
-        myfile << "\"" << id << "\",";             // ID
-        myfile << "\"" << categoryId << "\",";     // CategoryID
-        myfile << "\"" << 0 << "\",";              // SpellIconFileID
-        myfile << "\"" << 0 << "\",";              // CanLink
-        myfile << "\"" << 0 << "\",";              // ParentSkillLineID
-        myfile << "\"" << 0 << "\",";              // ParentTierIndex
-        myfile << "\"" << 0 << "\",";              // Flags
-        myfile << "\"" << 0 << "\"";                // SpellBookSpellID
-    }
 };
 
 struct SkillLineAbilityEntry5875
@@ -2324,18 +2307,6 @@ struct SkillRaceClassInfoEntry5875
         myfile << reqLevel << ", ";
         myfile << skillTierId << ", ";
         myfile << skillCostID << ")";
-    }
-
-    void WriteToHotfixCsvFile(std::ofstream& myfile) const
-    {
-        myfile << id << ",";                 // ID
-        myfile << raceMask << ",";           // RaceMask
-        myfile << skillId << ",";            // SkillID
-        myfile << classMask << ",";          // ClassMask
-        myfile << flags << ",";              // Flags
-        myfile << 0 << ",";                  // Availability
-        myfile << reqLevel << ",";           // MinLevel
-        myfile << skillTierId;               // SkillTierID
     }
 };
 

@@ -34,6 +34,3 @@ void ExportToSqlFile(unsigned int build, char const* fileName, char const* table
     myfile.close();
     printf("Wrote %u %s rows.\n", count, tableName);
 }
-
-void ExportSkillLineHotfixes(std::set<uint32> entries, std::vector<SkillLineEntry5875*> const& store);
-void ExportSkillRaceClassInfoHotfixes(std::set<uint32> entries, std::vector<SkillRaceClassInfoEntry5875*> const& store);

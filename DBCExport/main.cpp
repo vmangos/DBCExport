@@ -552,9 +552,6 @@ void CompareDBCs()
     printf("Loading dbcs from %s\n", dbcPath2.c_str());
     LoadAllDbcFiles(build2, dbcPath2, areaTriggerStore2, taxiNodesStore2, factionStore2, factionTemplateStore2, spellStore2, skillLineAbilityStore2, creatureSpellDataStore2, mailTemplateStore2, skillLineStore2, skillRaceClassInfoStore2);
 
-    printf("Do you want to write hotfixes? ");
-    bool hotfix = GetChar() == 'y';
-
     printf("Select dbc to compare:\n");
     printf(" 1. AreaTrigger\n");
     printf(" 2. TaxiNodes\n");
@@ -601,27 +598,9 @@ void CompareDBCs()
             break;
         case 9:
             CompareDbcStores(skillLineStore1, skillLineStore2, added, removed, changed);
-            if (hotfix)
-            {
-                std::set<uint32> exports;
-                for (auto id : changed)
-                    exports.insert(id);
-                for (auto id : added)
-                    exports.insert(id);
-                ExportSkillLineHotfixes(exports, skillLineStore2);
-            }
             break;
         case 10:
             CompareDbcStores(skillRaceClassInfoStore1, skillRaceClassInfoStore2, added, removed, changed);
-            if (hotfix)
-            {
-                std::set<uint32> exports;
-                for (auto id : changed)
-                    exports.insert(id);
-                for (auto id : added)
-                    exports.insert(id);
-                ExportSkillRaceClassInfoHotfixes(exports, skillRaceClassInfoStore2);
-            }
             break;
         default:
             printf("Invalid selection.");
